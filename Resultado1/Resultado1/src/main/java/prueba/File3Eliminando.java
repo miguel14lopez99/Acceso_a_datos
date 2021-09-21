@@ -19,12 +19,18 @@ public class File3Eliminando {
     
         File directorio = new File(".\\carpeta");
         
-        if (!directorio.exists()) {
-        System.out.println("El directorio no existe.");
-    } else {
-        directorio.delete();
-        System.out.println("El directorio fue eliminado.");
-    }
+        if (directorio.exists() && directorio.isDirectory()){
+            if(directorio.listFiles().length == 0){
+                directorio.delete();
+            } else {
+                File archivos[] = directorio.listFiles();
+                int numFiles = directorio.listFiles().length;
+                for (int i = 0; i < numFiles; i++) {
+                    archivos[i].delete();
+                }
+                directorio.delete();
+            }
+        }
 
     }
     
