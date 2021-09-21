@@ -5,6 +5,7 @@
  */
 package prueba;
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -13,8 +14,17 @@ import java.io.File;
 public class File2Creando {
     
     public static void main(String[] args) {
-        File directorio = new File(".\\carpeta");
-        directorio.mkdir();
+        
+        try {
+            File directorio = new File("carpeta");
+            directorio.mkdir();
+            File file1 = new File(directorio,"file1");
+            file1.createNewFile();
+            File file2 = new File(directorio,"file2");
+            file2.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Se ha producido un error");
+        }
         
     }
     
