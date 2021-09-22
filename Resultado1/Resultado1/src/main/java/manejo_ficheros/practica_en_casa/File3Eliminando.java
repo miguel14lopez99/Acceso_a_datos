@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manejo_ficheros;
+package manejo_ficheros.practica_en_casa;
 
 import java.io.File;
 

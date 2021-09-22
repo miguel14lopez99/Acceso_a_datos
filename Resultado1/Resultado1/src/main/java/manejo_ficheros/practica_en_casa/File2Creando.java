@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manejo_ficheros;
+package manejo_ficheros.practica_en_casa;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,15 +15,18 @@ public class File2Creando {
     
     public static void main(String[] args) {
         
+        File f;
+        String directorio = ".\\carpeta";
+        f = new File(directorio);
+        f.mkdir();
+        
         try {
-            File directorio = new File("carpeta");
-            directorio.mkdir();
-            File file1 = new File(directorio,"file1");
-            file1.createNewFile();
-            File file2 = new File(directorio,"file2");
-            file2.createNewFile();
+            f = new File(directorio,"file1");
+            f.createNewFile();
+            f = new File(directorio,"file2");
+            f.createNewFile();
         } catch (IOException e) {
-            System.out.println("Se ha producido un error");
+            System.out.println("Error de E/S");
         }
         
     }
