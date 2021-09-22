@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prueba;
+package manejo_ficheros;
+
+
 
 /**
  *
@@ -11,6 +13,10 @@ package prueba;
  */
 public class File4Copiando {
     
-    
+    public static void main(String[] args) {
+        
+        
+        
+    }
     
 }
