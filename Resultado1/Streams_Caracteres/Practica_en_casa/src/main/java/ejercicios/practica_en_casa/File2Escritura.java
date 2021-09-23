@@ -15,26 +15,32 @@ import java.io.IOException;
  * @author chipi
  */
 public class File2Escritura {
-    
+
     public static void main(String[] args) {
         
         UtilidadesGraficas util = new UtilidadesGraficas();
         File file1 = util.seleccionaArchivo();
         
         String cadena = "HOLA";
+        char[] caracteres = new char[cadena.length()];
         
+        for (int i = 0; i < cadena.length(); i++) {
+            caracteres[i] = cadena.charAt(i);
+        }
+            
         try {
             FileWriter ficheroOut = new FileWriter(file1);
-
-            ficheroOut.write(cadena);
-            System.out.println(cadena);
-        
+            
+            for (int i = 0; i < caracteres.length; i++) {
+               ficheroOut.write(caracteres[i]);
+               System.out.print(caracteres[i]);
+            }           
+            
             ficheroOut.close();
         } catch (IOException ex) {
             System.out.println("Error de E/S");
         }
         
     }
-            
-    
+
 }

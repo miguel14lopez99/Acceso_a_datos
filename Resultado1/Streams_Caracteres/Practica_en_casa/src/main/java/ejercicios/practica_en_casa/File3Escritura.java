@@ -18,10 +18,12 @@ public class File3Escritura {
     
     //ESTO NO FUNCIONA
     
-    UtilidadesGraficas util = new UtilidadesGraficas();
+    public static void main(String[] args) {
+        
+        UtilidadesGraficas util = new UtilidadesGraficas();
         File file1 = util.seleccionaArchivo();
         
-        String cadena = "HOLA";
+        String cadena = "BUENAS";
         
         try {
             FileWriter ficheroOut = new FileWriter(file1);
@@ -33,5 +35,7 @@ public class File3Escritura {
         } catch (IOException ex) {
             System.out.println("Error de E/S");
         }
+        
+    }
     
 }
