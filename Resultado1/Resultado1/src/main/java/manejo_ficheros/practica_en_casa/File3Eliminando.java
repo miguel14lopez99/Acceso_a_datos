@@ -5,6 +5,7 @@
  */
 package manejo_ficheros.practica_en_casa;
 
+import com.break4learning.utilidades.UtilidadesGraficas;
 import java.io.File;
 
 /**
@@ -13,25 +14,22 @@ import java.io.File;
  */
 public class File3Eliminando {
     
-    //no funciona y no se porque
-    
     public static void main(String[] args) {
     
-        File directorio = new File(".\\carpeta");
+        UtilidadesGraficas util = new UtilidadesGraficas();
         
-        if (directorio.exists() && directorio.isDirectory()){
-            if(directorio.listFiles().length == 0){
-                directorio.delete();
-            } else {
-                File archivos[] = directorio.listFiles();
-                int numFiles = directorio.listFiles().length;
-                for (int i = 0; i < numFiles; i++) {
-                    archivos[i].delete();
-                }
-                directorio.delete();
-            }
+        
+        String ruta = util.seleccionaDirectorio();
+        
+        File directorio = new File(ruta);
+        
+        File archivos[] = directorio.listFiles();
+        System.out.println("nº archivos: "+directorio.listFiles().length);
+        
+        for (File archivo : archivos) {
+            archivo.delete();
         }
-
+        directorio.delete();
     }
     
 }
