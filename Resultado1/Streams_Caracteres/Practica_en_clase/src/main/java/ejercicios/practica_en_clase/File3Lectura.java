@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicios.practica_en_casa;
+package ejercicios.practica_en_clase;
 
-import com.break4learning.utilidades.UtilidadesGraficas;
+import com.break4learning.utilidades.UtilidadesTexto;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,12 +16,17 @@ import java.io.IOException;
  *
  * @author chipi
  */
+
 public class File3Lectura {
     
     public static void main(String[] args) {
         
-        UtilidadesGraficas util = new UtilidadesGraficas();
-        File file1 = util.seleccionaArchivo();
+        UtilidadesTexto util = new UtilidadesTexto();
+//        System.out.println(util.seleccionaDirectorio());
+//        System.out.println(util.seleccionaArchivo());
+        
+        File file1 = new File(util.seleccionaDirectorio()+"\\"+util.seleccionaArchivo());
+        //No me encuentra el archivo
         
         try {
             FileReader ficheroIn = new FileReader(file1);
@@ -33,7 +38,9 @@ public class File3Lectura {
             while(linea != null){
                 linea = bufferficheroIn.readLine();
                 System.out.println(linea);
+              
             }
+            
         
             ficheroIn.close();
             bufferficheroIn.close();
