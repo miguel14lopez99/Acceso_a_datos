@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica_en_casa.ejercicios;
+package ejercicios.practica_en_clase;
 
 import com.break4learning.utilidades.UtilidadesGraficas;
 import java.io.DataOutputStream;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author B15-04m
+ * @author chipi
  */
 public class File3EscrituraBytesArrays {
     
@@ -21,6 +21,7 @@ public class File3EscrituraBytesArrays {
         
         String[] nombres =      {"Alfonso",     "Alfredo",      "María"};
         String[] telefonos =    {"666969669",   "656666565",    "626226265"};
+        boolean[] dadoDeAlta =  {true,          false,          true};
         
         UtilidadesGraficas util = new UtilidadesGraficas();
         
@@ -34,6 +35,7 @@ public class File3EscrituraBytesArrays {
                 
                 datosOut.writeUTF(nombres[i]);
                 datosOut.writeUTF(telefonos[i]);
+                datosOut.writeBoolean(dadoDeAlta[i]);
                 
             }
             
@@ -45,5 +47,5 @@ public class File3EscrituraBytesArrays {
         }
         
     }
-            
+    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica_en_casa.ejercicios;
+package ejercicios.practica_en_clase;
 
 import com.break4learning.utilidades.UtilidadesGraficas;
 import java.io.DataInputStream;
@@ -14,9 +14,9 @@ import java.io.IOException;
 
 /**
  *
- * @author B15-04m
+ * @author chipi
  */
-public class File2LecturaBytesPrim {
+public class File4LecturaBytesArrays {
     
     public static void main(String[] args) {
         
@@ -28,22 +28,19 @@ public class File2LecturaBytesPrim {
             FileInputStream ficheroIn = new FileInputStream(file1);
             DataInputStream datosIn = new DataInputStream(ficheroIn);
             
-            boolean bool = datosIn.readBoolean();
-            System.out.println(bool);
-            byte b = datosIn.readByte();
-            System.out.println(b);
-            short s = datosIn.readShort();
-            System.out.println(s);
-            int i = datosIn.readInt();
-            System.out.println(i);
-            long l = datosIn.readLong();
-            System.out.println(l);
-            float f = datosIn.readFloat();
-            System.out.println(f);
-            double d = datosIn.readDouble();
-            System.out.println(d);
-            char c = datosIn.readChar();
-            System.out.println(c);
+            String nombre = datosIn.readUTF();
+            String numero = datosIn.readUTF();
+            boolean dadoDeAlta = datosIn.readBoolean();
+            System.out.println(nombre + "\t|" + numero + "\t| Dado de Alta: " + dadoDeAlta);
+            
+            while(nombre != null && numero != null){
+                
+                nombre = datosIn.readUTF();
+                numero = datosIn.readUTF();
+                dadoDeAlta = datosIn.readBoolean();
+                System.out.println(nombre + "\t|" + numero + "\t| Dado de Alta: " + dadoDeAlta);
+                
+            }
             
             ficheroIn.close();
             datosIn.close();
@@ -53,7 +50,6 @@ public class File2LecturaBytesPrim {
         } catch (IOException ex) {
             System.out.println("Error de E/S");
         }
-        
         
     }
     
