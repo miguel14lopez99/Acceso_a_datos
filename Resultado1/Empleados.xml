@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Empleados>
+    <empleado>
+        <id>texto</id>
+    </empleado>
+    <empleado>
+        <id>texto1</id>
+    </empleado>
+</Empleados>

@@ -3,53 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicios.practica_en_clase;
+package com.break4learning.utilidades;
 
-import com.break4learning.utilidades.UtilidadesGraficas;
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-import java.io.*;
+import java.io.File;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
  * @author b15-04m
  */
-public class Ejemplo_clase {
+public class UtilidadesXML {
     
-    public static void main(String[] args) {
-
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            DOMImplementation implementation = builder.getDOMImplementation();
-            Document document = implementation.createDocument(null, "Empleados", null);
-            
-            document.setXmlVersion("1.0");
-            
-            Element raiz = document.createElement("empleado");
-
-            document.getDocumentElement().appendChild(raiz);
-            
-            Element elem = document.createElement("id");
-            raiz.appendChild(elem);
-            
-            menu(document);
-            
-            
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Ejemplo_clase.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
-    
-    static void CrearNodo(String datoEmple, String valor, Element raiz, Document document){
+    public static void CrearNodo(String datoEmple, String valor, Element raiz, Document document){
 
         Element elem = document.createElement(datoEmple); //creamos el hijo
         Text text = document.createTextNode(valor); //damos valor
@@ -58,29 +33,29 @@ public class Ejemplo_clase {
 
     }
     
-    static void ConstruirXML(Document document, Result salida){
+    public static void ConstruirXML(Document document, Result salida){
         try{
             Source source = new DOMSource(document);
             
             Transformer transformer=TransformerFactory.newInstance().newTransformer();
             transformer.transform(source,salida);
         } catch (TransformerException ex) {
-            Logger.getLogger(Ejemplo_clase.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error en la transformación");
         }
     }    
     
-    static void ConstruirXML(Document document){
+    public static void ConstruirXML(Document document){
         try{
             Source source = new DOMSource(document);
             Result salida = new StreamResult(System.out);
             Transformer transformer=TransformerFactory.newInstance().newTransformer();
             transformer.transform(source,salida);
         } catch (TransformerException ex) {
-            Logger.getLogger(Ejemplo_clase.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error en la transformación");
         }
     }
     
-    static void menu(Document document){
+    public static void menu(Document document){
         UtilidadesGraficas util = new UtilidadesGraficas();
         
         Scanner sc = new Scanner (System.in);
@@ -93,12 +68,12 @@ public class Ejemplo_clase {
         
         int opt = -1;
         
-        while(opt != 0){
+        while(opt != 0){ //opción de salida
             
             System.out.println("\nIntroduce la opción: ");
             opt = sc.nextInt();
         
-            if (opt < 0 || opt > 2){
+            if (opt < 0 || opt > 2){ // rango de las opciones
                 System.out.println("Error vuelve a introducir la opción: ");
                 opt = sc.nextInt();
             }
@@ -118,5 +93,5 @@ public class Ejemplo_clase {
             }
         }
     }
-        
+    
 }
