@@ -1,9 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Empleados>
-    <empleado>
-        <id>texto</id>
-    </empleado>
-    <empleado>
-        <id>texto1</id>
-    </empleado>
-</Empleados>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Empleados><empleado><id>0</id><apellido>lopez</apellido><departamento>33</departamento><salario>1000</salario></empleado><empleado><id>0</id><apellido>lopez</apellido><departamento>33</departamento><salario>1000</salario></empleado></Empleados>

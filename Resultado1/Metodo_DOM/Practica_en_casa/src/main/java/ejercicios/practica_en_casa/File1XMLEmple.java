@@ -7,7 +7,6 @@ package ejercicios.practica_en_casa;
 
 import com.break4learning.utilidades.UtilidadesGraficas;
 import com.break4learning.utilidades.UtilidadesXML;
-import static com.break4learning.utilidades.UtilidadesXML.ConstruirXML;
 import java.io.File;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -28,17 +27,22 @@ import org.w3c.dom.Element;
 public class File1XMLEmple {
     
     public static void main(String[] args) {
-                
+        
+        int[] ids = {1,2};
+        String[] apellidos = {"lopez", "gutierrez"};
+        int[] departs = {22,33};
+        double[] salarios = {1000, 2000};
+        
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            DOMImplementation implementation = builder.getDOMImplementation();
-            Document document = implementation.createDocument(null, "Empleados", null);
-            document.setXmlVersion("1.0");
+            Document document = 
             
             for (int i = 0; i < 2; i++) { //añade 2 empleados
-                Element raiz = document.createElement("empleado");
-            document.getDocumentElement().appendChild(raiz);
+                Element empleado = document.createElement("empleado");
+                document.getDocumentElement().appendChild(empleado);
+                UtilidadesXML.CrearNodo("id", String.valueOf(ids[i]), empleado, document);
+                UtilidadesXML.CrearNodo("apellido", apellidos[i], empleado, document);
+                UtilidadesXML.CrearNodo("departamento", String.valueOf(departs[i]), empleado, document);
+                UtilidadesXML.CrearNodo("salario", String.valueOf(salarios[i]), empleado, document);
             }  
             
             menu(document);
@@ -51,6 +55,7 @@ public class File1XMLEmple {
     
     public static void menu(Document document){
         UtilidadesGraficas util = new UtilidadesGraficas();
+        UtilidadesXML utilXML = new UtilidadesXML();
         
         Scanner sc = new Scanner (System.in);
         
@@ -74,12 +79,12 @@ public class File1XMLEmple {
             
             switch (opt) {
                 case 1:
-                    ConstruirXML(document);
+                    utilXML.ConstruirXML(document);
                     break;
                 case 2:
                     File archivo = util.seleccionaArchivo();
                     Result salida = new StreamResult(archivo);
-                    ConstruirXML(document, salida);
+                    utilXML.ConstruirXML(document, salida);
                     break;
                 case 0:
                     System.out.println("Adios");

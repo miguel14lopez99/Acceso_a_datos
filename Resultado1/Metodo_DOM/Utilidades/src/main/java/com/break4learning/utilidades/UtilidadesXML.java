@@ -7,6 +7,11 @@ package com.break4learning.utilidades;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -14,6 +19,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -24,6 +30,7 @@ import org.w3c.dom.Text;
  */
 public class UtilidadesXML {
     
+    
     public static void CrearNodo(String datoEmple, String valor, Element raiz, Document document){
 
         Element elem = document.createElement(datoEmple); //creamos el hijo
@@ -31,6 +38,22 @@ public class UtilidadesXML {
         raiz.appendChild(elem); //pegamos el elemento hijo a la raiz
         elem.appendChild(text); //pegamos el valor al elemento
 
+    }
+    
+    public static Document CrearDoc(){
+        
+        try{
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            Document document = implementation.createDocument(null, "Empleados", null);
+            document.setXmlVersion("1.0");
+            return document;
+            
+        } catch(ParserConfigurationException ex){
+            Logger.getLogger(UtilidadesXML.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
     
     public static void ConstruirXML(Document document, Result salida){
@@ -93,5 +116,7 @@ public class UtilidadesXML {
             }
         }
     }
+    
+    
     
 }
