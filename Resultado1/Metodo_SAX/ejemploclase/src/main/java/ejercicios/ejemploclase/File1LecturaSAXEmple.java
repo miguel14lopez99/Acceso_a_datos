@@ -23,7 +23,7 @@ import org.xml.sax.XMLReader;
  *
  * @author b15-04m
  */
-public class ejemploSAX {
+public class File1LecturaSAXEmple {
     
     public static void main(String[] args) {
         
@@ -39,13 +39,9 @@ public class ejemploSAX {
             procesadorXML.setContentHandler(gestor);
             InputSource fileXML = new InputSource("alumnos.xml");
             procesadorXML.parse(fileXML);
-            
-            
-            
-        } catch (SAXException | IOException ex) {
-            Logger.getLogger(ejemploSAX.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(ejemploSAX.class.getName()).log(Level.SEVERE, null, ex);
+ 
+        } catch (SAXException | IOException | ParserConfigurationException ex) {
+            Logger.getLogger(File1LecturaSAXEmple.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

@@ -32,19 +32,20 @@ public class GestionContenido extends DefaultHandler {
     }
     public void startElement(String uri, String nombre, String nombreC, Attributes atts) {
 
-        System.out.printf("\tComienzo elemento: %s %n", nombre);
+        System.out.printf("\t<%s> %n", nombreC);
 
     }
     public void endElement(String uri, String nombre, String nombreC) {
-        System.out.printf("\tFin elemento: %s %n", nombre);
+        System.out.printf("\t</%s> %n", nombreC);
 
     }
     public void characters(char[] ch, int inicio, int longitud) throws SAXException {
 
-        String car = new String(ch, inicio, longitud);
-        car = car.replaceAll("[\t\n]","");
-        System.out.printf("\tCaracteres: %s %n", car);
-
+            String car = new String(ch, inicio, longitud);
+            car = car.replaceAll("[\t\n]","");
+            if (!car.isBlank())
+                System.out.printf("\t%s %n", car);
+        
     }
     
 }
