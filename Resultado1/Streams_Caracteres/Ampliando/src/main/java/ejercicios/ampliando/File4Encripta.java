@@ -28,11 +28,11 @@ public class File4Encripta {
             FileReader ficheroIn = new FileReader(file1);
             FileWriter ficheroOut = new FileWriter(file2);
             
-            int i = 0;
+            int i = ficheroIn.read();
             
             while(i != -1){
-                i = ficheroIn.read();
                 ficheroOut.write(i+3);
+                i = ficheroIn.read();   
             }
             
             ficheroIn.close();

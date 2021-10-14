@@ -16,8 +16,6 @@ import java.io.IOException;
  */
 public class File3Escritura {
     
-    //ESTO NO FUNCIONA
-    
     public static void main(String[] args) {
         
         UtilidadesGraficas util = new UtilidadesGraficas();

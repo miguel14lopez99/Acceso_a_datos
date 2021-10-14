@@ -26,10 +26,11 @@ public class File1Lectura {
             FileReader ficheroIn = new FileReader(file1);
             
             int i = 0;
+            i = ficheroIn.read();
             
             while(i != -1){
+                System.out.print((char) i);
                 i = ficheroIn.read();
-                System.out.print((char) i);   
             }
             
             ficheroIn.close();

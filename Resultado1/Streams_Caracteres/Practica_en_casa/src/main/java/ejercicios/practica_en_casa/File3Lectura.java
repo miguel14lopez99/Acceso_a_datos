@@ -28,11 +28,10 @@ public class File3Lectura {
             BufferedReader bufferficheroIn = new BufferedReader( ficheroIn);
              
             String linea = bufferficheroIn.readLine();
-            System.out.println(linea);
             
             while(linea != null){
-                linea = bufferficheroIn.readLine();
                 System.out.println(linea);
+                linea = bufferficheroIn.readLine();  
             }
         
             ficheroIn.close();

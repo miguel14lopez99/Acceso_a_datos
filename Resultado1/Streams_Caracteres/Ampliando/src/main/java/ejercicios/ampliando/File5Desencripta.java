@@ -29,11 +29,10 @@ public class File5Desencripta {
             FileWriter ficheroOut = new FileWriter(file2);
             
             int i = ficheroIn.read();
-            ficheroOut.write(i-3);
             
             while(i != -1){
-                i = ficheroIn.read();
                 ficheroOut.write(i-3);
+                i = ficheroIn.read(); 
             }
             
             ficheroIn.close();

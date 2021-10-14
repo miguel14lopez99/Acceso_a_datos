@@ -27,12 +27,13 @@ public class File2Lectura {
             
             int i = 0;
             char cadena[] = new char[20];
+            i = ficheroIn.read(cadena);
             
             while(i != -1){
-                i = ficheroIn.read(cadena);
                 for (int j = 0; j < cadena.length; j++) {
                     System.out.print(cadena[j]);
                 }
+                i = ficheroIn.read(cadena);
             }
             
             ficheroIn.close();

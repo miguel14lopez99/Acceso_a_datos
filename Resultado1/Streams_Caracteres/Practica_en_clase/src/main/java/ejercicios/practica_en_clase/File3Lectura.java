@@ -22,25 +22,19 @@ public class File3Lectura {
     public static void main(String[] args) {
         
         UtilidadesTexto util = new UtilidadesTexto();
-//        System.out.println(util.seleccionaDirectorio());
-//        System.out.println(util.seleccionaArchivo());
         
         File file1 = new File(util.seleccionaDirectorio()+"\\"+util.seleccionaArchivo());
-        //No me encuentra el archivo
         
         try {
             FileReader ficheroIn = new FileReader(file1);
             BufferedReader bufferficheroIn = new BufferedReader( ficheroIn);
              
             String linea = bufferficheroIn.readLine();
-            System.out.println(linea);
             
             while(linea != null){
-                linea = bufferficheroIn.readLine();
                 System.out.println(linea);
-              
+                linea = bufferficheroIn.readLine();
             }
-            
         
             ficheroIn.close();
             bufferficheroIn.close();
