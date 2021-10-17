@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.break4learning.utilidades;
+package ejercicios.practica_en_clase;
 
+import com.break4learning.utilidades.UtilidadesGraficas;
 import java.io.File;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -40,20 +41,31 @@ public class UtilidadesXML {
 
     }
     
-    public static Document CrearDoc(){
+    public static void CrearNodoSinTexto(String datoEmple, String valor, Element raiz, Document document){
+
+        Element elem = document.createElement(datoEmple); //creamos el hijo
+        Text text = document.createTextNode(valor); //damos valor
+        raiz.appendChild(elem); //pegamos el elemento hijo a la raiz
+        elem.appendChild(text); //pegamos el valor al elemento
+
+    }
+    
+    public static Document CrearDoc(String nombre){
+        
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
+        Document document = null;
         
         try{
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            Document document = implementation.createDocument(null, "Empleados", null);
+            document = implementation.createDocument(null, nombre, null);
             document.setXmlVersion("1.0");
-            return document;
+            
             
         } catch(ParserConfigurationException ex){
             Logger.getLogger(UtilidadesXML.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+      return document;
     }
     
     public static void ConstruirXML(Document document, Result salida){

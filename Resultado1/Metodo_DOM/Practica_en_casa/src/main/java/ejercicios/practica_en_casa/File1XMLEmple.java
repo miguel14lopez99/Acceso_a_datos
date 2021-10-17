@@ -6,7 +6,6 @@
 package ejercicios.practica_en_casa;
 
 import com.break4learning.utilidades.UtilidadesGraficas;
-import com.break4learning.utilidades.UtilidadesXML;
 import java.io.File;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -33,64 +32,19 @@ public class File1XMLEmple {
         int[] departs = {22,33};
         double[] salarios = {1000, 2000};
         
-        try {
-            Document document = 
-            
-            for (int i = 0; i < 2; i++) { //añade 2 empleados
-                Element empleado = document.createElement("empleado");
-                document.getDocumentElement().appendChild(empleado);
-                UtilidadesXML.CrearNodo("id", String.valueOf(ids[i]), empleado, document);
-                UtilidadesXML.CrearNodo("apellido", apellidos[i], empleado, document);
-                UtilidadesXML.CrearNodo("departamento", String.valueOf(departs[i]), empleado, document);
-                UtilidadesXML.CrearNodo("salario", String.valueOf(salarios[i]), empleado, document);
-            }  
-            
-            menu(document);
-  
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(File1XMLEmple.class.getName()).log(Level.SEVERE, null, ex);
+        Document document = UtilidadesXML.CrearDoc("Empleados");
+        for (int i = 0; i < 2; i++) { //añade 2 empleados
+            Element empleado = document.createElement("empleado");
+            document.getDocumentElement().appendChild(empleado);//al que le metes cosas
+            UtilidadesXML.CrearNodo("id", String.valueOf(ids[i]), empleado, document);
+            UtilidadesXML.CrearNodo("apellido", apellidos[i], empleado, document);
+            UtilidadesXML.CrearNodo("departamento", String.valueOf(departs[i]), empleado, document);
+            UtilidadesXML.CrearNodo("salario", String.valueOf(salarios[i]), empleado, document);
         }
+        UtilidadesXML.menu(document);
    
     }
     
-    public static void menu(Document document){
-        UtilidadesGraficas util = new UtilidadesGraficas();
-        UtilidadesXML utilXML = new UtilidadesXML();
-        
-        Scanner sc = new Scanner (System.in);
-        
-        System.out.println("- Menu -"
-                + "\nElige entre una de estas opciones"
-                + "\n1. Mostrar por pantalla"
-                + "\n2. Generar archivo"
-                + "\n0. Salir ");
-        
-        int opt = -1;
-        
-        while(opt != 0){ //opción de salida
-            
-            System.out.println("\nIntroduce la opción: ");
-            opt = sc.nextInt();
-        
-            if (opt < 0 || opt > 2){ // rango de las opciones
-                System.out.println("Error vuelve a introducir la opción: ");
-                opt = sc.nextInt();
-            }
-            
-            switch (opt) {
-                case 1:
-                    utilXML.ConstruirXML(document);
-                    break;
-                case 2:
-                    File archivo = util.seleccionaArchivo();
-                    Result salida = new StreamResult(archivo);
-                    utilXML.ConstruirXML(document, salida);
-                    break;
-                case 0:
-                    System.out.println("Adios");
-                    break;
-            }
-        }
-    }
+    
     
 }

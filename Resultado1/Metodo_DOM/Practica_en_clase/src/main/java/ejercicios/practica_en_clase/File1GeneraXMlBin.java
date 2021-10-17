@@ -6,7 +6,7 @@
 package ejercicios.practica_en_clase;
 
 import com.break4learning.utilidades.UtilidadesGraficas;
-import static com.break4learning.utilidades.UtilidadesXML.ConstruirXML;
+import static ejercicios.practica_en_clase.UtilidadesXML.ConstruirXML;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
