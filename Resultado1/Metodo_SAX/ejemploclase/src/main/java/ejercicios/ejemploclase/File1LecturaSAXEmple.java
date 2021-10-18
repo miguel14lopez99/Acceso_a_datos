@@ -29,6 +29,7 @@ public class File1LecturaSAXEmple {
         
         UtilidadesGraficas util = new UtilidadesGraficas();
         
+        
         try {
             
             SAXParserFactory parserFactory = SAXParserFactory.newInstance();
