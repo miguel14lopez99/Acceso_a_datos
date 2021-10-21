@@ -1,0 +1,22 @@
+CREATE TABLE departamentos (dept_no int not null primary key, dnombre varchar(15), loc varchar(15));
+CREATE TABLE empleados (emp_no int not null primary key, apellido varchar(10), oficio varchar(10), dir int, fecha_alt date, salario float, comisión float, dept_no int not null references departamentos (dept_no));
+
+INSERT INTO departamentos(emp_no,dnombre,loc) values(1,'DESARROLLO','Cuidad Real');
+INSERT INTO departamentos(emp_no,dnombre,loc) values(2,'IVESTIGACION','Toledo');
+INSERT INTO departamentos(emp_no,dnombre,loc) values(3,'DESARROLLO','Cuidad Real');
+INSERT INTO departamentos(emp_no,dnombre,loc) values(4,'IVESTIGACION','Toledo');
+
+INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(1,'López',    'Director',        1,'1/10/2021','5000','1000',3);
+INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(2,'Gutiérrez','Empleado',        4,'2/10/2021','1000','100', 1);
+INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(3,'García',   'Empleado',        4,'3/10/2021','1000','100', 1);
+INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(4,'Romero',   'Jefe de proyecto',1,'4/10/2021','3000','300', 1);
+
+SELECT * FROM empleados
+
+CREATE TABLE productos (id int primary key, descripcion varchar(50) not null, stockAnual int, stockMinimo int, PVP int);
+CREATE TABLE clientes (id int primary key, nombre varchar(50) not null, direccion varchar(50), poblacion varchar(50), telef varchar(20), NIF varchar(10));
+CREATE TABLE ventas (idVenta int primary key, fechaVenta date not null, idCliente int references clientes(id), idProducto int references productos(id), cantidad int);
+
+INSERT INTO productos(id,descripcion,stockAnual,stockMinimo,PVP) values(1, 'descripción del producto 1', '1000', '20', '100');
+INSERT INTO clientes(id, nombre, direccion, poblacion, telef, nif) values(1, 'Manuel', 'Pepito 30', 'Ciudad Real', '663663663', '06845955D');
+INSERT INTO ventas(idVenta,fechaVenta,idCliente,idProducto, cantidad) values(1, '21/10/2021', 1, 1, 3);
