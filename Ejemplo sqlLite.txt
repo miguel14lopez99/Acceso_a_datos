@@ -1,10 +1,10 @@
 CREATE TABLE departamentos (dept_no int not null primary key, dnombre varchar(15), loc varchar(15));
 CREATE TABLE empleados (emp_no int not null primary key, apellido varchar(10), oficio varchar(10), dir int, fecha_alt date, salario float, comisión float, dept_no int not null references departamentos (dept_no));
 
-INSERT INTO departamentos(emp_no,dnombre,loc) values(1,'DESARROLLO','Cuidad Real');
-INSERT INTO departamentos(emp_no,dnombre,loc) values(2,'IVESTIGACION','Toledo');
-INSERT INTO departamentos(emp_no,dnombre,loc) values(3,'DESARROLLO','Cuidad Real');
-INSERT INTO departamentos(emp_no,dnombre,loc) values(4,'IVESTIGACION','Toledo');
+INSERT INTO departamentos(dept_no,dnombre,loc) values(1,'DESARROLLO','Cuidad Real');
+INSERT INTO departamentos(dept_no,dnombre,loc) values(2,'IVESTIGACION','Toledo');
+INSERT INTO departamentos(dept_no,dnombre,loc) values(3,'DESARROLLO','Cuidad Real');
+INSERT INTO departamentos(dept_no,dnombre,loc) values(4,'IVESTIGACION','Toledo');
 
 INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(1,'López',    'Director',        1,'1/10/2021','5000','1000',3);
 INSERT INTO empleados(emp_no,apellido,oficio,dir,fecha_alt,salario,comisión,dept_no) values(2,'Gutiérrez','Empleado',        4,'2/10/2021','1000','100', 1);
