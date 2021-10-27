@@ -36,10 +36,9 @@ public class File4ProductosOracle {
             Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
 
             Statement sentencia = conexion.createStatement();
-            String sql = "SELECT p.id,p.descripcion,p.stockAnual,p.stockMinimo,p.PVP "
-                    + "FROM productos p, ventas v, clientes c "
-                    + "WHERE p.id = v.idProducto AND c.id = v.idCliente"; 
-            //no funciona con el inner join, en la conexion si en el main no
+            String sql = "SELECT p.* "
+                    + "FROM productos p INNER JOIN ventas v "
+                    + "ON p.id = v.idProducto"; 
 
             ResultSet result = sentencia.executeQuery(sql);
             while(result.next()){       

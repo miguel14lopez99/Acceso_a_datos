@@ -6,6 +6,7 @@
 package ejercicios.oracleaccesopdb;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -34,7 +35,7 @@ public class NewMain {
             
             Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
             
-            System.out.println("Conectado al usuario: "+conexion.getSchema());
+            DatabaseMetaData dbmd = conexion.getMetaData();
             
             conexion.close();
         } catch (ClassNotFoundException ex) {

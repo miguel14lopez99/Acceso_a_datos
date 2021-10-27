@@ -1,0 +1,4 @@
+CREATE OR REPLACE PROCEDURE mostrar_dia_hora
+BEGIN
+SYSDATETIME()
+END mostrar_dia_hora;
