@@ -1,4 +1,16 @@
-CREATE OR REPLACE PROCEDURE mostrar_dia_hora
+CREATE OR REPLACE PROCEDURE mostrar_fecha(
+ )
+IS
+  l_fecha DATE;
 BEGIN
-SYSDATETIME()
-END mostrar_dia_hora;
+  -- get contact based on customer id
+  SELECT TO_CHAR (SYSDATE, 'MM-DD-YYYY HH24:MI:SS')
+    INTO l_fecha
+    FROM DUAL;
+
+  -- print out contact's information
+  dbms_output.put_line( l_fecha );
+EXCEPTION
+   WHEN OTHERS THEN
+      dbms_output.put_line( 'Error' );
+END;

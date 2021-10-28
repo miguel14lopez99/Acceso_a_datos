@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sql.utilidades.UtilidadesSQL;
 
 /**
  *
@@ -23,35 +24,24 @@ public class File1SelectOracle {
     public static void main(String[] args) {
         
         try {
-            String driver = "oracle.jdbc.driver.OracleDriver";
-            String urlconnection = "jdbc:oracle:thin:@localhost:1521/PDB18C";
+            UtilidadesSQL util = new UtilidadesSQL();
             
-            Properties propiedades = new Properties();
-            
-            propiedades.setProperty("user", "dam2");
-            propiedades.setProperty("password", "dam2");
-            
-            Class.forName(driver);
-            
-            Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
+            Connection conexion = util.ConexionOracle();
 
-            Statement sentencia = conexion.createStatement();
             String sql = "SELECT * FROM departamentos";
 
-            ResultSet result = sentencia.executeQuery(sql);
+            ResultSet result = util.EjecutarSentencia(conexion, sql);
+            
             while(result.next()){       
                 System.out.printf("%d, %s, %s %n",
                         result.getInt(1),
                         result.getString(2),
                         result.getString(3));
-
             }
 
             result.close();
-            conexion.close();
+            util.CerrarConexion(conexion);
         
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(File1SelectOracle.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(File1SelectOracle.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sql.utilidades.UtilidadesSQL;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,19 +18,11 @@ import java.util.logging.Logger;
 public class MetadatosOracle {
     
     public static void main(String[] args) {
-        
+
         try {
-            String driver = "oracle.jdbc.driver.OracleDriver";
-            String urlconnection = "jdbc:oracle:thin:@localhost:1521/PDB18C";
+            UtilidadesSQL util = new UtilidadesSQL();
             
-            Properties propiedades = new Properties();
-            
-            propiedades.setProperty("user", "dam2");
-            propiedades.setProperty("password", "dam2");
-            
-            Class.forName(driver);
-            
-            Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
+            Connection conexion = util.ConexionOracle();
             
             DatabaseMetaData dbmd = conexion.getMetaData();
             
@@ -50,7 +43,7 @@ public class MetadatosOracle {
             String[] tipos = {"TABLE"};
             result = dbmd.getTables(null, usuario, null, null);
             
-            while(result.next()){       
+            while(result.next()){
                 System.out.printf("%s, %s, %s, %s, %s %n",
                         result.getString(1),
                         result.getString(2),
@@ -62,20 +55,18 @@ public class MetadatosOracle {
             System.out.println("\n");
             
             ResultSet columnas = null;
-            columnas = dbmd.getColumns(null, usuario, "DEPARTAMENTOS", null);
+            columnas = dbmd.getColumns(null, usuario, "DEPARTAMENTOS", null); //El nombre tiene que estar en mayusculas
             
-            while(columnas.next()){       
+            while(columnas.next()){
                 System.out.printf("%s%n",
                         columnas.getString("COLUMN_NAME"));
-            }  
+            }
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MetadatosOracle.class.getName()).log(Level.SEVERE, null, ex);
+            util.CerrarConexion(conexion);
         } catch (SQLException ex) {
             Logger.getLogger(MetadatosOracle.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
+ 
     }
     
 }

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sql.utilidades.UtilidadesSQL;
 
 /**
  *
@@ -23,24 +24,16 @@ public class File4ProductosOracle {
     public static void main(String[] args) {
         
         try {
-            String driver = "oracle.jdbc.driver.OracleDriver";
-            String urlconnection = "jdbc:oracle:thin:@localhost:1521/PDB18C";
+            UtilidadesSQL util = new UtilidadesSQL();
             
-            Properties propiedades = new Properties();
-            
-            propiedades.setProperty("user", "dam2");
-            propiedades.setProperty("password", "dam2");
-            
-            Class.forName(driver);
-            
-            Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
+            Connection conexion = util.ConexionOracle();
 
-            Statement sentencia = conexion.createStatement();
             String sql = "SELECT p.* "
                     + "FROM productos p INNER JOIN ventas v "
                     + "ON p.id = v.idProducto"; 
 
-            ResultSet result = sentencia.executeQuery(sql);
+            ResultSet result = util.EjecutarSentencia(conexion, sql);
+            
             while(result.next()){       
                 System.out.printf("%d, %s, %d, %d, %d %n",
                         result.getInt(1),
@@ -51,10 +44,8 @@ public class File4ProductosOracle {
             }
 
             result.close();
-            conexion.close();
+            util.CerrarConexion(conexion);
         
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(File4ProductosOracle.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(File4ProductosOracle.class.getName()).log(Level.SEVERE, null, ex);
         }

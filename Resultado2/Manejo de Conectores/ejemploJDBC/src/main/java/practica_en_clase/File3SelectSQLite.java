@@ -8,6 +8,7 @@ package practica_en_clase;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sql.utilidades.UtilidadesSQL;
 
 /**
  *
@@ -18,18 +19,17 @@ public class File3SelectSQLite {
     public static void main(String[] args) {
         
         try {
-            Class.forName("org.sqlite.JDBC");
+            UtilidadesSQL util = new UtilidadesSQL();
         
-            Connection conexion = DriverManager.getConnection("jdbc:sqlite:.\\bbdd\\ejemplo.db");
+            Connection conexion = util.ConexionSQLite();
 
-            Statement sentencia = conexion.createStatement();
             String sql = "SELECT e.apellido, e.salario, d.dnombre \n" +
                             "FROM empleados e, departamentos d\n" +
                             "WHERE e.dept_no = d.dept_no \n" +
                             "	and e.apellido = (SELECT apellido FROM empleados \n" +
                             "					  WHERE salario = (SELECT MAX(salario) FROM empleados))";
 
-            ResultSet result = sentencia.executeQuery(sql);
+            ResultSet result = util.EjecutarSentencia(conexion, sql);
             while(result.next()){       
                 System.out.printf("%s, %d, %s %n",
                         result.getString(1),
@@ -39,10 +39,8 @@ public class File3SelectSQLite {
             }
 
             result.close();
-            conexion.close();
+            util.CerrarConexion(conexion);
         
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(File3SelectSQLite.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(File3SelectSQLite.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import practica_en_clase.File2SelectSQLite;
+import sql.utilidades.UtilidadesSQL;
 
 /**
  *
@@ -23,16 +24,15 @@ public class File4ProductosSQLite {
     public static void main(String[] args) {
         
         try {
-            Class.forName("org.sqlite.JDBC");
+            UtilidadesSQL util = new UtilidadesSQL();
         
-            Connection conexion = DriverManager.getConnection("jdbc:sqlite:.\\bbdd\\ejemplo.db");
+            Connection conexion = util.ConexionSQLite();
 
-            Statement sentencia = conexion.createStatement();
             String sql = "SELECT p.id,p.descripcion,p.stockAnual,p.stockMinimo,p.PVP FROM productos p\n" +
                             "INNER JOIN ventas v on p.id = v.idProducto\n" +
                             "INNER JOIN clientes c on c.id = v.idCliente;";
 
-            ResultSet result = sentencia.executeQuery(sql);
+            ResultSet result = util.EjecutarSentencia(conexion, sql);
             while(result.next()){       
                 System.out.printf("%d, %s, %d, %d, %d %n",
                         result.getInt(1),
@@ -43,10 +43,8 @@ public class File4ProductosSQLite {
             }
 
             result.close();
-            conexion.close();
+            util.CerrarConexion(conexion);
         
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(File4ProductosSQLite.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(File4ProductosSQLite.class.getName()).log(Level.SEVERE, null, ex);
         }

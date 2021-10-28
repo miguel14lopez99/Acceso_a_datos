@@ -35,8 +35,6 @@ public class NewMain {
             
             Connection conexion = DriverManager.getConnection(urlconnection, propiedades);
             
-            DatabaseMetaData dbmd = conexion.getMetaData();
-            
             conexion.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);

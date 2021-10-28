@@ -3,6 +3,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sql.utilidades.UtilidadesSQL;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,9 +20,9 @@ public class MetadatosSQLite {
     public static void main(String[] args) {
         
         try {
-            Class.forName("org.sqlite.JDBC");
+            UtilidadesSQL util = new UtilidadesSQL();
             
-            Connection conexion = DriverManager.getConnection("jdbc:sqlite:..\\ejemploJDBC\\bbdd\\ejemplo.db"); //entro en el directorio anterior y en proy ejemplo
+            Connection conexion = util.ConexionSQLite();
 
             DatabaseMetaData dbmd = conexion.getMetaData();
             
@@ -61,8 +62,8 @@ public class MetadatosSQLite {
                         columnas.getString("COLUMN_NAME"));
             }  
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MetadatosSQLite.class.getName()).log(Level.SEVERE, null, ex);
+            util.CerrarConexion(conexion);
+            
         } catch (SQLException ex) {
             Logger.getLogger(MetadatosSQLite.class.getName()).log(Level.SEVERE, null, ex);
         }
