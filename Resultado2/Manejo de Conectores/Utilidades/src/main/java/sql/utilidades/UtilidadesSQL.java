@@ -68,4 +68,40 @@ public class UtilidadesSQL {
         return null;
     }
     
+    public void MostrarSentencia(Connection conexion, String sql){
+        try {
+            Statement sentencia = conexion.createStatement();
+            ResultSet rs = sentencia.executeQuery(sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            int columnas = rsmd.getColumnCount();
+            
+            //escribir nombres de las columnas
+            for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
+                String nombrecol = rsmd.getColumnName(i);
+                System.out.printf("%10s\t|",rsmd.getColumnName(i));
+            }
+            System.out.println("");
+            
+            //escribir los datos
+            while(rs.next()){
+                for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
+                    String tipo = rsmd.getColumnTypeName(i);
+                    if(tipo.equals("VARCHAR2")){
+                        System.out.printf("%10s\t|",rs.getString(i));
+                    }
+                    if(tipo.equals("NUMBER")){
+                        System.out.printf("%10d\t|",rs.getInt(i));
+                    }
+                    if(tipo.equals("DATE")){
+                        System.out.printf("%10s\t|",rs.getInt(i));
+                    }
+                }
+                System.out.println("");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilidadesSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

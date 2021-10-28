@@ -69,38 +69,4 @@ public class MetadatosOracle {
  
     }
     
-    public static void MostrarSentencia(Connection conexion, String sql){
-        try {
-            Statement sentencia = conexion.createStatement();
-            ResultSet rs = sentencia.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            
-            //escribir nombres de las columnas
-            for (int i = 0; i < rsmd.getColumnCount() ; i++) {
-                System.out.printf("%s\t",rsmd.getColumnName(i));
-            }
-            System.out.println("\n");
-            
-            //escribir los datos
-            for (int i = 0; i < rsmd.getColumnCount() ; i++) {
-                String tipo = rsmd.getColumnTypeName(i);
-                if(tipo.equals("VARCHAR")){
-                    System.out.printf("%s\t",rs.getString(i));
-                }
-                if(tipo.equals("NUMBER")){
-                    System.out.printf("%s\t",rs.getInt(i));
-                }
-                if(tipo.equals("DATE")){
-                    System.out.printf("%s\t",rs.getInt(i));
-                }
-            }
-            System.out.println("");
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(MetadatosOracle.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
-    
 }
