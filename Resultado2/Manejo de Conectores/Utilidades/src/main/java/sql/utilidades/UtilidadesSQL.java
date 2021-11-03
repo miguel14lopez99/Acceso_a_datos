@@ -94,8 +94,9 @@ public class UtilidadesSQL {
                         System.out.printf("%10d\t|",rs.getInt(i));
                     }
                     if(tipo.equals("DATE")){
-                        System.out.printf("%10s\t|",rs.getInt(i));
+                        System.out.printf("%10s\t|",rs.getDate(i));               
                     }
+                    
                 }
                 System.out.println("");
             }

@@ -28,7 +28,7 @@ public class File1SelectOracle {
             
             Connection conexion = util.ConexionOracle();
 
-            String sql = "SELECT * FROM departamentos";
+            String sql = "SELECT * FROM empleados";
 
 //            ResultSet result = util.EjecutarSentencia(conexion, sql);
 //            
