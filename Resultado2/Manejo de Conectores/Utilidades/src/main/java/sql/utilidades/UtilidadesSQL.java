@@ -105,4 +105,11 @@ public class UtilidadesSQL {
             Logger.getLogger(UtilidadesSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void MostrarError (SQLException e){       
+        System.out.println ("Ha ocurrido un error:");
+            System.out.println ("Mensaje: " +e.getMessage());
+            System.out.println ("SQL Estado: " +e.getSQLState());
+            System.out.println ("Código de error: " +e.getErrorCode());
+    }
 }

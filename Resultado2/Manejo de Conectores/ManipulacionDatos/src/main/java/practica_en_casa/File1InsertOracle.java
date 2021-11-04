@@ -7,6 +7,10 @@ package practica_en_casa;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sql.utilidades.UtilidadesSQL;
 
 /**
@@ -19,21 +23,28 @@ public class File1InsertOracle {
         
         UtilidadesSQL util = new UtilidadesSQL();
         
-        Connection conexion = util.ConexionOracle();
-        
-        int dep=15;
-        String dnombre="INFORMÁTICA";
-        String loc="MADRID";
-        
-        String sql = "INSERT INTO departamentos VALUES("+ dep +",'"+ dnombre +"','"+ loc +"')";
-        
-        util.EjecutarSentencia(conexion, sql);       
-        
-        sql = "SELECT * FROM departamentos";
-        
-        util.MostrarSentencia(conexion, sql);
-        
-        util.CerrarConexion(conexion);
+        try {
+
+            Connection conexion = util.ConexionOracle();
+            
+            int dep=16;
+            String dnombre="CONTABILIDAD";
+            String loc="CIUDAD REAL";
+            
+            String sql = "INSERT INTO departamentos VALUES("+ dep +",'"+ dnombre +"','"+ loc +"')";
+            
+            Statement sentencia = conexion.createStatement();
+            int filas = sentencia.executeUpdate(sql);
+            System.out.print("\n"+filas +" filas afectadas.\n");
+            
+            sql = "SELECT * FROM departamentos";
+            
+            util.MostrarSentencia(conexion, sql);
+            
+            util.CerrarConexion(conexion);
+        } catch (SQLException ex) {
+            util.MostrarError(ex);
+        }
         
     }
     
