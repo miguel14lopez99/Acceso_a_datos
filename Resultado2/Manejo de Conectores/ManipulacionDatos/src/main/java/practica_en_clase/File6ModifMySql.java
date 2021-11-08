@@ -3,37 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica_en_casa;
+package practica_en_clase;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sql.utilidades.UtilidadesSQL;
 
 /**
  *
  * @author b15-04m
  */
-public class File2ModifOracle {
+public class File6ModifMySql {
     
     public static void main(String[] args) {
         
+        UtilidadesSQL util = new UtilidadesSQL();
+        
         try {
-            UtilidadesSQL util = new UtilidadesSQL();
-            
+
             Connection conexion = util.ConexionOracle();
             
-            String dept = "15";
-            String aumento = "100";
-            
-            
-            String sql = "UPDATE empleados SET salario = (salario+"+ aumento +")"
-                    + "WHERE dept_no = "+dept;
-            
-            Statement sentencia = conexion.createStatement();
-            int filas = sentencia.executeUpdate(sql);
+            int dept = 15;
+            int disminucion = 12;
+
+            String sql = "UPDATE empleados SET salario = (salario - (salario * ? /100) )"
+                + "WHERE dept_no = ? ";
+
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+            sentencia.setInt(1, disminucion);
+            sentencia.setInt(2, dept);
+
+            int filas = sentencia.executeUpdate();
             System.out.print("\n"+filas +" filas afectadas.\n");
             
             sql = "SELECT * FROM empleados";
@@ -43,8 +45,9 @@ public class File2ModifOracle {
             util.CerrarConexion(conexion);
             
         } catch (SQLException ex) {
-            Logger.getLogger(File2ModifOracle.class.getName()).log(Level.SEVERE, null, ex);
+            util.MostrarError(ex);
         }
+        
         
     }
     
