@@ -30,11 +30,11 @@ public class File2ModifOracle {
             
             
             String sql = "UPDATE empleados SET salario = (salario+"+ aumento +")"
-                    + "WHERE dept_no = "+dept;
+                    + "WHERE dept_no = " + dept;
             
             Statement sentencia = conexion.createStatement();
             int filas = sentencia.executeUpdate(sql);
-            System.out.print("\n"+filas +" filas afectadas.\n");
+            System.out.print("\n"+ filas +" filas afectadas.\n");
             
             sql = "SELECT * FROM empleados";
             

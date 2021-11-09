@@ -8,13 +8,14 @@ package practica_en_clase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import sql.utilidades.UtilidadesSQL;
 
 /**
  *
  * @author b15-04m
  */
-public class File6ModifMySql {
+public class File4InsertOracle {
     
     public static void main(String[] args) {
         
@@ -24,30 +25,35 @@ public class File6ModifMySql {
 
             Connection conexion = util.ConexionOracle();
             
-            int dept = 15;
-            int disminucion = 12;
-
-            String sql = "UPDATE empleados SET salario = (salario - (salario * ? /100) )"
-                + "WHERE dept_no = ? ";
-
+            int dep=25;
+            String dnombre="NÓMINAS";
+            String loc="VALDEPEÑAS";
+            
+            String sql = "INSERT INTO departamentos VALUES(?,?,?)";
+            
             PreparedStatement sentencia = conexion.prepareStatement(sql);
-
-            sentencia.setInt(1, disminucion);
-            sentencia.setInt(2, dept);
-
+            
+            sentencia.setInt(1, dep);
+            sentencia.setString(2, dnombre);
+            sentencia.setString(3, loc);
+            
             int filas = sentencia.executeUpdate();
             System.out.print("\n"+filas +" filas afectadas.\n");
-            
-            sql = "SELECT * FROM empleados";
+
+            sql = "SELECT * FROM departamentos";
             
             util.MostrarSentencia(conexion, sql);
             
             util.CerrarConexion(conexion);
             
         } catch (SQLException ex) {
-            util.MostrarError(ex);
+            //util.MostrarError(ex);
+            
+            //Muestra si 
+            if (ex.getMessage().contains("ORA-00001")){
+                System.out.println("Esa fila ya ha sido insertada");
+            }
         }
-        
         
     }
     

@@ -8,7 +8,6 @@ package practica_en_clase;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import sql.utilidades.UtilidadesSQL;
 
@@ -16,15 +15,15 @@ import sql.utilidades.UtilidadesSQL;
  *
  * @author b15-04m
  */
-public class File7InsertMySql {
+public class File7InsertOracle {
     
-    static int numero = 15;
-    static String apellido = "dfg";
-    static String oficio = "dfg";
+    static int numero = 20;
+    static String apellido = "";
+    static String oficio = "Soldador";
     static int director = 1;
-    static Date fecha_alta = Date.valueOf("20/03/2021");
-    static double salario = 2;
-    static double comision = 3;
+    static Date fecha_alta = new Date(System.currentTimeMillis());
+    static double salario = 2000;
+    static double comision = 300;
     static int numero_dept = 4;
     
     public static void main(String[] args) {
@@ -35,7 +34,7 @@ public class File7InsertMySql {
 
             Connection conexion = util.ConexionOracle();
             
-            String sql = "INSERT INTO EMPLE VALUES (?,?,?,?,?,?,?,?) ";
+            String sql = "INSERT INTO empleados VALUES (?,?,?,?,?,?,?,?) ";
 
             PreparedStatement sentencia = conexion.prepareStatement(sql);
 
@@ -62,10 +61,11 @@ public class File7InsertMySql {
             
         } catch (SQLException ex) {
             util.MostrarError(ex);
-            
+            //Comprueba que el numero de empleado no exista en la tabla empleados
             if (ex.getErrorCode() == 1){
                 System.out.println("Esa fila ya ha sido insertada");
             }
+            //Comprueba que el departamento existe en la tabla departamentos
             if (ex.getErrorCode() == 2291){
                 System.out.println("El departameto no existe");
             }
@@ -76,21 +76,30 @@ public class File7InsertMySql {
     }
     
     public static boolean comprobarDatos(){
+
+        UtilidadesSQL util = new UtilidadesSQL();
+        
+        Connection conexion = util.ConexionOracle();
         
         //Comprueba si el salario es mayor > 0
         if (salario <= 0){
             System.out.println("El salario tiene que ser mayor que 0");
             return false;
         }
-        
-        String sql = "SELECT EMP_NO FROM EMPLE WHERE EMP_NO = " + director;
-                
-        ResultSet rs = util.EjecutarSentencia(conexion, sql);
-
-        if (!rs.next()){
+        //Comprueba que existe el director
+        if (!util.devuelveDatos(conexion, "SELECT emp_no FROM emple where emp_no = "+ director)){
             System.out.println("El director no existe");
+            return false;
+        }
+        //Comprueba que el apellido y oficio no sean nulos
+        if (apellido.equals("") || oficio.equals("")){ 
+            System.out.println("El apellido y el oficio tienen que contener datos");
+            return false;
         }
         
+        util.CerrarConexion(conexion);
+        
+        return true;
     }
     
 }

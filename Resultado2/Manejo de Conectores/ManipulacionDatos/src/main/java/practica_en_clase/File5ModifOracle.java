@@ -18,7 +18,7 @@ import sql.utilidades.UtilidadesSQL;
  *
  * @author b15-04m
  */
-public class File5ModifMySql {
+public class File5ModifOracle {
     
     public static void main(String[] args) {
         

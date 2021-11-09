@@ -50,12 +50,12 @@ public class Lectura_Pagos implements Datos_Pagos {
                 if(id != -1){
                     System.out.printf("\nID: %d"
                         + "\nMes: %s\n"
-                        + "\nAlquiler:\t%s €"
-                        + "\nLuz:\t\t%s €"
-                        + "\nAgua:\t\t%s €"
-                        + "\nGas:\t\t%s €"
+                        + "\nAlquiler:\t%6.2f €"
+                        + "\nLuz:\t\t%6.2f €"
+                        + "\nAgua:\t\t%6.2f €"
+                        + "\nGas:\t\t%6.2f €"
                         + "\n---------------------------"
-                        + "\nTotal:\t\t%s €"
+                        + "\nTotal:\t\t%6.2f €"
                         + "\n\n///////////////////////////\n", 
                         id, mesStr, alquiler, gastoLuz, gastoAgua, gastoGas, total);
                 } else {

@@ -18,9 +18,10 @@ public class File1SelectSQLite {
     
     public static void main(String[] args) {
         
-        try {
-            UtilidadesSQL util = new UtilidadesSQL();
+        UtilidadesSQL util = new UtilidadesSQL();
         
+        try {
+            
             Connection conexion = util.ConexionSQLite();
 
             String sql = "SELECT * FROM departamentos";
@@ -39,7 +40,7 @@ public class File1SelectSQLite {
             util.CerrarConexion(conexion);
         
         } catch (SQLException ex) {
-            Logger.getLogger(File1SelectSQLite.class.getName()).log(Level.SEVERE, null, ex);
+            util.MostrarError(ex);
         }
     }
     

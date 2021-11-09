@@ -23,28 +23,36 @@ public class File1InsertOracle {
         
         UtilidadesSQL util = new UtilidadesSQL();
         
-        try {
+        Connection conexion = util.ConexionOracle();
 
-            Connection conexion = util.ConexionOracle();
-            
-            int dep=16;
-            String dnombre="CONTABILIDAD";
-            String loc="CIUDAD REAL";
-            
-            String sql = "INSERT INTO departamentos VALUES("+ dep +",'"+ dnombre +"','"+ loc +"')";
-            
-            Statement sentencia = conexion.createStatement();
-            int filas = sentencia.executeUpdate(sql);
-            System.out.print("\n"+filas +" filas afectadas.\n");
-            
-            sql = "SELECT * FROM departamentos";
-            
-            util.MostrarSentencia(conexion, sql);
-            
-            util.CerrarConexion(conexion);
-        } catch (SQLException ex) {
-            util.MostrarError(ex);
-        }
+        int dep=16;
+        String dnombre="CONTABILIDAD";
+        String loc="CIUDAD REAL";
+
+        String sql = "INSERT INTO departamentos(dept_no, dnombre, loc) VALUES("+ dep +",'"+ dnombre +"','"+ loc +"')";  
+        util.EjecutarSentencia(conexion, sql);
+        
+        sql = "SELECT * FROM departamentos";
+        util.MostrarSentencia(conexion, sql);
+        
+
+        sql = "DELETE FROM departamentos WHERE dept_no = "+dep;
+        util.EjecutarSentencia(conexion, sql);
+        
+        sql = "SELECT * FROM departamentos";
+        util.MostrarSentencia(conexion, sql);
+        
+
+        sql = "INSERT INTO departamentos(dept_no, dnombre, loc) VALUES("+ dep +",'"+ dnombre +"','"+ loc +"')";  
+        util.EjecutarSentencia(conexion, sql);
+
+        sql = "SELECT * FROM departamentos";
+        util.MostrarSentencia(conexion, sql);
+
+
+
+        util.CerrarConexion(conexion);
+
         
     }
     

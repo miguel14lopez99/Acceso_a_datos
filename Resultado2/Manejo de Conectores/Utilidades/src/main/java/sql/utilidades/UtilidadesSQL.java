@@ -58,27 +58,31 @@ public class UtilidadesSQL {
     
     public ResultSet EjecutarSentencia(Connection conexion, String sql){
         try {
-            Statement sentencia = conexion.createStatement();
-            ResultSet result = sentencia.executeQuery(sql);
+            Statement sentencia = conexion.createStatement();     
+            boolean valor = sentencia.execute(sql);
             
-            return result;
+            if (valor){
+                ResultSet result = sentencia.getResultSet();
+                return result;
+            } else {
+                int filas = sentencia.getUpdateCount();
+                System.out.print("\n"+ filas +" filas afectadas.\n");
+            }
+ 
         } catch (SQLException ex) {
-            Logger.getLogger(UtilidadesSQL.class.getName()).log(Level.SEVERE, null, ex);
+            MostrarError(ex);
         }
         return null;
     }
     
     public void MostrarSentencia(Connection conexion, String sql){
         try {
-            Statement sentencia = conexion.createStatement();
-            ResultSet rs = sentencia.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
             
-            int columnas = rsmd.getColumnCount();
+            ResultSet rs = EjecutarSentencia(conexion, sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
             
             //escribir nombres de las columnas
             for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
-                String nombrecol = rsmd.getColumnName(i);
                 System.out.printf("%10s\t|",rsmd.getColumnName(i));
             }
             System.out.println("");
@@ -102,7 +106,7 @@ public class UtilidadesSQL {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(UtilidadesSQL.class.getName()).log(Level.SEVERE, null, ex);
+            MostrarError(ex);
         }
     }
     
@@ -111,5 +115,16 @@ public class UtilidadesSQL {
             System.out.println ("Mensaje: " +e.getMessage());
             System.out.println ("SQL Estado: " +e.getSQLState());
             System.out.println ("Código de error: " +e.getErrorCode());
+    }
+    
+    public boolean devuelveDatos (Connection conexion, String sql){        
+        try {
+            Statement sentencia = conexion.createStatement();
+            return sentencia.execute(sql);
+        } catch (SQLException ex) {
+            MostrarError(ex);
+        }
+        
+        return false;
     }
 }

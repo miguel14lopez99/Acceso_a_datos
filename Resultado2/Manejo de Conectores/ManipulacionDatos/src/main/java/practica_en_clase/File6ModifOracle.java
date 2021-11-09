@@ -8,21 +8,13 @@ package practica_en_clase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import static practica_en_clase.File7InsertMySql.apellido;
-import static practica_en_clase.File7InsertMySql.comision;
-import static practica_en_clase.File7InsertMySql.director;
-import static practica_en_clase.File7InsertMySql.fecha_alta;
-import static practica_en_clase.File7InsertMySql.numero;
-import static practica_en_clase.File7InsertMySql.numero_dept;
-import static practica_en_clase.File7InsertMySql.oficio;
-import static practica_en_clase.File7InsertMySql.salario;
 import sql.utilidades.UtilidadesSQL;
 
 /**
  *
  * @author b15-04m
  */
-public class File8ConsultaMySql {
+public class File6ModifOracle {
     
     public static void main(String[] args) {
         
@@ -32,14 +24,30 @@ public class File8ConsultaMySql {
 
             Connection conexion = util.ConexionOracle();
             
-            String sql = "Select apellido, salario, oficio from emple";
+            int dept = 15;
+            int disminucion = 12;
 
-            PreparedStatement sentencia = ;
+            String sql = "UPDATE empleados SET salario = (salario - (salario * ? /100) )"
+                + "WHERE dept_no = ? ";
+
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+            sentencia.setInt(1, disminucion);
+            sentencia.setInt(2, dept);
+
+            int filas = sentencia.executeUpdate();
+            System.out.print("\n"+filas +" filas afectadas.\n");
+            
+            sql = "SELECT * FROM empleados";
+            
+            util.MostrarSentencia(conexion, sql);
+            
+            util.CerrarConexion(conexion);
             
         } catch (SQLException ex) {
             util.MostrarError(ex);
-
         }
+        
         
     }
     

@@ -32,12 +32,11 @@ public class File3VistaOracle {
             
             Statement sentencia = conexion.createStatement();
             int filas = sentencia.executeUpdate(sql);
-            System.out.print("\n"+filas +" filas afectadas.\n");
+            System.out.print("\n"+ filas +" filas afectadas.\n");
             
             sql = "SELECT * FROM vistaDepart";
             
             util.MostrarSentencia(conexion, sql);
-            
             
             sentencia.close();
             util.CerrarConexion(conexion);
