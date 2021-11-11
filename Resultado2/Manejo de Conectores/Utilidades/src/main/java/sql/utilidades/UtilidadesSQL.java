@@ -91,14 +91,15 @@ public class UtilidadesSQL {
             while(rs.next()){
                 for (int i = 1; i <= rsmd.getColumnCount() ; i++) {
                     String tipo = rsmd.getColumnTypeName(i);
-                    if(tipo.equals("VARCHAR2")){
+                    
+                    if(tipo.equals(Types.VARCHAR)){
                         System.out.printf("%10s\t|",rs.getString(i));
-                    }
-                    if(tipo.equals("NUMBER")){
+                    }else if(tipo.equals(Types.NUMERIC)){
                         System.out.printf("%10d\t|",rs.getInt(i));
-                    }
-                    if(tipo.equals("DATE")){
-                        System.out.printf("%10s\t|",rs.getDate(i));               
+                    }else if(tipo.equals(Types.DATE)){
+                        System.out.printf("%10s\t|",rs.getDate(i));                                          
+                    } else {
+                        System.out.printf("%10s\t|",rs.getString(i));
                     }
                     
                 }

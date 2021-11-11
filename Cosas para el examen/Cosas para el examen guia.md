@@ -1,12 +1,10 @@
 # Cosas para el examen
 
-### <u>IMPORTAR LAS UTILIDADES</u>
+## <u>IMPORTAR LAS UTILIDADES</u>
 
 Meter en la carpeta del proyecto >> Build with Dependencies >> Añadir como dependencia
 
-
-
-### <u>IMPORTAR LAS OTRAS DEPENDENCIAS</u>
+## <u>IMPORTAR LAS OTRAS DEPENDENCIAS</u>
 
 - ORACLE
 
@@ -52,11 +50,9 @@ Meter en la carpeta del proyecto >> Build with Dependencies >> Añadir como depe
 
 Pegar en Project Files / pom.xml , encima de la etiqueta \<properties>
 
-
-
 ---
 
-### <u>MUESTRA Y COMPRBACIÓN DE ERRORES PARA CONSULTAS</u>
+## <u>MUESTRA Y COMPRBACIÓN DE ERRORES PARA CONSULTAS</u>
 
 (SQLException)
 
@@ -89,8 +85,6 @@ Pegar en Project Files / pom.xml , encima de la etiqueta \<properties>
       System.out.println("Has introducido mas valores de los necesarios");
   }
   ```
-
-
 
 ---
 

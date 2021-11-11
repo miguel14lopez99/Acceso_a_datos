@@ -23,19 +23,23 @@ public class File1ProcSubidaOracle {
         UtilidadesSQL util = new UtilidadesSQL();
         
         int dept = 15;
+        int subida = 100;
         
         try {
 
             Connection conexion = util.ConexionOracle();
             
-            String sql = "{call SUBIR_SALARIO(?)}";
+            String sql = "{call SUBIDA_SALARIO(?,?)}";
             
             CallableStatement llamada = conexion.prepareCall(sql);
             
             llamada.setInt(1, dept);
+            llamada.setInt(2, subida);
             
             int filas = llamada.executeUpdate();
             System.out.print("\n"+filas +" filas afectadas.\n");
+            
+            util.CerrarConexion(conexion);
             
         } catch (SQLException ex) {
             util.MostrarError(ex);

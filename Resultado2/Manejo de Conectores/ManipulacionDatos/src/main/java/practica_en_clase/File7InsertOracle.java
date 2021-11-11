@@ -17,9 +17,9 @@ import sql.utilidades.UtilidadesSQL;
  */
 public class File7InsertOracle {
     
-    static int numero = 20;
-    static String apellido = "";
-    static String oficio = "Soldador";
+    static int numero = 21;
+    static String apellido = "Lolo";
+    static String oficio = "Solador";
     static int director = 1;
     static Date fecha_alta = new Date(System.currentTimeMillis());
     static double salario = 2000;
