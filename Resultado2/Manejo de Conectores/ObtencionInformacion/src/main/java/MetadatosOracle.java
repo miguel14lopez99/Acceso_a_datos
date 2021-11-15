@@ -62,6 +62,56 @@ public class MetadatosOracle {
                         columnas.getString("COLUMN_NAME"));     //nombre de la columna
             } 
             
+            System.out.println("\nPRIMARY KEYS:");
+
+            ResultSet pk = dbmd.getPrimaryKeys(null, usuario, "DEPARTAMENTOS");
+
+            while(pk.next()){
+                System.out.printf("%s, %s, %s, %s, %s %n",
+                        pk.getString("PK_NAME"),                //nombre de la pk
+                        pk.getString("TABLE_CAT"),              //(1)
+                        pk.getString("TABLE_SCHEM"),            //(2)
+                        pk.getString("TABLE_NAME"),             //(3)
+                        pk.getString("COLUMN_NAME"));           //(4)
+            }
+
+            System.out.println("\nFOREIGN KEYS: (las que apuntan)");
+
+            ResultSet fkExported = dbmd.getExportedKeys(null, usuario, "DEPARTAMENTOS"); //las fk que apuntan a departamentos
+
+            while(fkExported.next()){
+                System.out.printf("%s, %s, %s, %s, %s %n",
+                        fkExported.getString("PKTABLE_CAT"),    //(1)
+                        fkExported.getString("PKTABLE_SCHEM"),  //(2)
+                        fkExported.getString("PKTABLE_NAME"),   //(3)
+                        fkExported.getString("PKCOLUMN_NAME"),  //(4)
+                        fkExported.getString("FKTABLE_NAME"));  //de donde vienen las fk
+            }
+
+            System.out.println("\nFOREIGN KEYS: (las que salen)");
+
+            ResultSet fkImported = dbmd.getImportedKeys(null, usuario, "EMPLEADOS"); //las fk que salen de empleados
+
+            while(fkImported.next()){
+                System.out.printf("%s, %s, %s, %s %n",
+                        fkImported.getString("PKTABLE_CAT"),    //(1)
+                        fkImported.getString("PKTABLE_SCHEM"),  //(2)
+                        fkImported.getString("PKTABLE_NAME"),   //(3)
+                        fkImported.getString("PKCOLUMN_NAME")); //(4)
+            }
+            
+            System.out.println("\nPROCEDIMIENTOS: ");
+
+            ResultSet procedure = dbmd.getProcedures(null, usuario, null); //las fk que salen de empleados
+
+            while(procedure.next()){
+                System.out.printf("%s, %s, %s, %s %n",
+                        procedure.getString(1),     //(1)
+                        procedure.getString(2),   //(2)
+                        procedure.getString(3),    //(3)
+                        procedure.getString(4));  //(4)
+            }
+            
             util.CerrarConexion(conexion);
         } catch (SQLException ex) {
             Logger.getLogger(MetadatosOracle.class.getName()).log(Level.SEVERE, null, ex);
