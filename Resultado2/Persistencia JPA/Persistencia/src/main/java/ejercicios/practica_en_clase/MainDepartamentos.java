@@ -23,6 +23,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -39,12 +43,8 @@ public class MainDepartamentos {
 
         inicializarFactory();
         
-        consultaConParametro();
-        
-        subirSalario();
-        
-        
-        
+        consultaConCriteriaQueryVariosCampos();
+
     }
     
     public static void inicializarFactory(){
@@ -292,4 +292,161 @@ public class MainDepartamentos {
         
     }
     
+    public static void consultaVariosCampos(){
+        TypedQuery<Object[]> query = entitymanager.createQuery("Select d.dnombre,d.loc from Departamentos d", Object[].class);
+
+        List<Object[]> list = query.getResultList();
+
+        for(Object[] e:list) {
+           System.out.println("Dept NAME :"+e[0]);
+           System.out.println("Dept LOC :"+e[1]);
+        }
+    }
+
+    public static void subirSalarioJPQL(){
+        
+        entitymanager.getTransaction().begin();
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el nuevo salario: ");
+        Double aumento = sc.nextDouble();
+        
+        System.out.println("Introduce el departamento: ");
+        int dept = sc.nextInt();
+        
+        departamento = entitymanager.find(Departamentos.class, BigDecimal.valueOf(dept), LockModeType.PESSIMISTIC_READ);
+        
+        //Mostrar antes del update
+        
+        TypedQuery<Object[]> selectquery = entitymanager.createQuery("Select e.apellido,e.salario from Empleados e WHERE e.deptNo = :deptNoV ", Object[].class);
+
+        selectquery.setParameter("deptNoV", departamento);
+        
+        List<Object[]> list = selectquery.getResultList();
+
+        for(Object[] e:list) {
+           System.out.println("Emple APELLIDO :"+e[0]);
+           System.out.println("Emple SALARIO :"+e[1]);
+        }
+        
+        //realizar el update
+        
+        Query query = entitymanager.createQuery("UPDATE Empleados e SET e.salario = (e.salario + :aumento) WHERE e.deptNo = :deptNoV");
+        query.setParameter("aumento", aumento);
+        query.setParameter("deptNoV", departamento);
+        
+        int updateCount = query.executeUpdate();
+        
+        entitymanager.getTransaction().commit();
+        
+        System.out.println(updateCount+" filas modificadas.");
+        
+        //Mostrar apellido y salario
+        
+        selectquery = entitymanager.createQuery("Select e.apellido,e.salario from Empleados e WHERE e.deptNo = :deptNoV", Object[].class);
+
+        selectquery.setParameter("deptNoV", departamento);
+        
+        list = selectquery.getResultList();
+
+        for(Object[] e:list) {
+           System.out.println("Emple APELLIDO :"+e[0]);
+           System.out.println("Emple SALARIO :"+e[1]);
+        }
+        
+    }
+    
+    public static void eliminarDepartamentoJPQL(){
+        
+        entitymanager.getTransaction().begin();
+        
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Introduce el departamento: ");
+        int dept = sc.nextInt();
+        
+        
+        Query query = entitymanager.createQuery("DELETE FROM Departamentos d WHERE d.deptNo = :deptNoV");
+        query.setParameter("deptNoV", BigDecimal.valueOf(dept));
+        
+        int updateCount = query.executeUpdate();
+        
+        entitymanager.getTransaction().commit();
+        
+        System.out.println(updateCount+" filas modificadas.");
+        
+    }
+    
+    public static void modificarEmpleadoJPQL(){
+        
+        entitymanager.getTransaction().begin();
+        
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Introduce el empleado: ");
+        int emple = sc.nextInt();
+        
+        System.out.println("Introduce el salario: ");
+        double salario = sc.nextDouble();
+        
+        System.out.println("Introduce el departamento: ");
+        int dept = sc.nextInt();
+        
+        departamento = entitymanager.find(Departamentos.class, BigDecimal.valueOf(dept));
+        
+        Query query = entitymanager.createQuery("UPDATE Empleados e SET e.salario = :salario , e.deptNo = :deptNoV WHERE e.empNo = :empNoV");
+         
+        query.setParameter("salario", salario);
+        query.setParameter("deptNoV", departamento);
+        
+        query.setParameter("empNoV", BigDecimal.valueOf(emple));
+        
+        int updateCount = query.executeUpdate();
+        
+        entitymanager.getTransaction().commit();
+        
+        System.out.println(updateCount+" filas modificadas.");
+        
+    }
+    
+    public static void eliminarEmpleadoJPQL(){
+        
+        entitymanager.getTransaction().begin();
+        
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Introduce el empleado: ");
+        int emple = sc.nextInt();
+        
+        Query query = entitymanager.createQuery("DELETE FROM Empleados e WHERE e.empNo = :empNoV");
+        query.setParameter("empNoV", BigDecimal.valueOf(emple));
+        
+        int updateCount = query.executeUpdate();
+        
+        entitymanager.getTransaction().commit();
+        
+        System.out.println(updateCount+" filas modificadas.");
+        
+    }
+    
+    
+    public static void consultaConCriteriaQueryVariosCampos(){
+        
+        CriteriaBuilder cb = entitymanager.getCriteriaBuilder();
+        
+        CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
+        
+        Root<Departamentos> d = query.from(Departamentos.class);
+        query.select(cb.array(d.get("dnombre"), d.get("loc")));
+        
+        List<Object[]> list = entitymanager.createQuery(query).getResultList();
+        
+        for (Object[] e : list){
+            System.out.println("Dept NAME: "+e[0]);
+            System.out.println("Dept NAME: "+e[1]);
+        }
+        
+    }
+    
 }
+
