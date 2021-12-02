@@ -7,10 +7,13 @@ package ejercicios.trabajo_r3_miguel_lopez;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -30,7 +33,8 @@ public class Main {
     static EntityManager entitymanager;
     private static Campanias campania;
     private static Agricultores agricultor;
-    private static Trabajos trabajo;
+    private static Maquinas maquina;
+    private final static Scanner sc = new Scanner (System.in);
     
     public static void main(String[] args) {
         
@@ -48,9 +52,7 @@ public class Main {
         
     }
     
-    public static void menuPrincipal(){
-        
-        Scanner sc = new Scanner (System.in);
+    public static void menuPrincipal(){       
 
         int opt = -1;
         
@@ -87,12 +89,16 @@ public class Main {
                 case 0:
                     System.out.println("Adios");
                 
-                    try { //cerrar bbdd                        
-                        conexion.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    if(conexion != null){
+                        try { //cerrar bbdd                        
+                            conexion.close();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                
+
+                    sc.close();
+                    
                     System.exit(0);
                     break;
 
@@ -138,6 +144,8 @@ public class Main {
     public static void CrearTablas(){
         String sql;
         
+        //comprobar que las tablas ya están creadas
+        
         try {
 
             Statement sentencia = conexion.createStatement();
@@ -159,7 +167,7 @@ public class Main {
                   "    CONSTRAINT PK_AGRICULTORES PRIMARY KEY (ID_AGRI)\n)";
             sentencia.execute(sql);
             
-            //Crear tabla Trabajos           
+            //Crear tabla Maquinas           
             sql = "CREATE TABLE MAQUINAS(\n" +
                   "    ID_MAQUINA   NUMBER,\n" +
                   "    NRO_BASTIDOR VARCHAR2(17),\n" +
@@ -197,21 +205,23 @@ public class Main {
             int[] telefonos = {666333999, 111222333, 444555666, 777888999, 111555999, 333555777, 444222666, 666888444, 222555888, 444555666, 111666555, 333444555};
             int[] campanias = {1,1,2,2,3,3,4,4,5,5,6,6};
             
-            String[] nombTrab = {"Miguel", "Pepe", "Paco", "Elena", "Javier", "Benito", "Manolo", "Fran", "Jorge", "Daniel", "Pablo", "Luis"};
-            String[] maquina = {"Miguel", "Pepe", "Paco", "Elena", "Javier", "Benito", "Manolo", "Fran", "Jorge", "Daniel", "Pablo", "Luis"};
-            int[] agricultor = {1,1,2,2,3,3,4,4,5,5,6,6};
+            String[] nBastidor = {"JT2BG22K3Y0485107", "1GNKVGED5CJ196120", "3FAFP13P41R199033", "5FNRL38489B407103", "JH4KA3250JC001616", "JH4KA7680RC011845", 
+                                  "SCBBR53W36C034889", "WAUMGAFL1DA105812", "JH4KA7670RC000738", "JH4DC4460SS000830", "JA4MW31R12J026290", "WAUMGAFL1DA105812"};
+            String[] revisiones = {"25-01-2021", "16-04-2021", "27-04-2021", "07-05-2021", "15-06-2021", "16-06-2021", 
+                                   "23-07-2021", "27-07-2021", "28-07-2021", "08-09-2021", "25-11-2021", "22-12-2021"};
+            int[] agricultores = {1,2,3,4,5,6,7,8,9,10,11,12};
             
             Statement sentencia =  conexion.createStatement();
             
             //Borrado de registros
             
-            sql = "DELETE FROM CAMPANIAS";
+            sql = "DELETE FROM MAQUINAS";
             sentencia.execute(sql);
             
             sql = "DELETE FROM AGRICULTORES";
             sentencia.execute(sql);
             
-            sql = "DELETE FROM TRABAJOS";
+            sql = "DELETE FROM CAMPANIAS";
             sentencia.execute(sql);
             
             sentencia.close();
@@ -230,7 +240,7 @@ public class Main {
             }
             
             //AGRICULTORES
-            for (int i = 0; i < nombCamp.length; i++) {
+            for (int i = 0; i < nombAgri.length; i++) {
                 agricultor = new Agricultores();
                 agricultor.setIdAgri(BigDecimal.valueOf(i+1));
                 agricultor.setNombreAgri(nombAgri[i]);
@@ -241,14 +251,33 @@ public class Main {
                 
                 campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(campanias[i]));
                 agricultor.setIdCamp(campania);
-                
-                
+                                
                 entitymanager.persist(agricultor);
                 entitymanager.getTransaction().commit();
             }
             
-            //TRABAJOS
+            //MAQUINAS
+            for (int i = 0; i < nBastidor.length; i++) {
+                maquina = new Maquinas();
+                maquina.setIdMaquina(BigDecimal.valueOf(i+1));
+                maquina.setNroBastidor(nBastidor[i]);
+                try {
+                    maquina.setUltRevision(new SimpleDateFormat("dd-MM-yyyy").parse(revisiones[i]));
+                } catch (ParseException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                //buscar agricultor correspondiente
+                entitymanager.getTransaction().begin();
+                
+                agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(agricultores[i]));
+                maquina.setIdAgri(agricultor);
+                                
+                entitymanager.persist(maquina);
+                entitymanager.getTransaction().commit();
+            }
             
+            System.out.println("\nDatos Reiniciados\n");
                         
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,9 +286,7 @@ public class Main {
     }
     
     public static void MenuApp(){
-        
-        Scanner sc = new Scanner (System.in);           
-        
+                      
         int opt = -1;
         
         while(opt != 0){ //opción de salida
@@ -281,23 +308,64 @@ public class Main {
             
             switch (opt) {
                 case 1:
-                    //metodo1();
-                    System.out.println("metodo1");
+                    menu1();
                     break;
                 case 2:
-                    //metodo2();
+                    //menu2();
                     System.out.println("metodo2");
                     break;
                 case 3:
-                    //metodo3();
+                    //menu3();
                     System.out.println("metodo3");
                     break;
                 case 4:
-                    //metodo4();
+                    //menu4();
                     System.out.println("metodo4");
                     break;
                 case 0:
                     menuPrincipal();
+                    break;
+            }
+        }
+        
+    }
+    
+    public static void menu1(){              
+        
+        int opt = -1;
+        
+        while(opt != 0){ //opción de salida
+            
+            System.out.println("============ APP ============"
+                + "\n0. Volver al menú de la app"
+                + "\n1. Inserción de registro"
+                + "\n2. Modificación de registro"
+                + "\n3. Borrado registro"
+                + "\n4. Mostrar los datos de un registro");
+            
+            System.out.println("\nIntroduce la opción: ");
+            opt = sc.nextInt();
+        
+            if (opt < 0 || opt > 4){ // rango de las opciones
+                System.out.println("Error vuelve a introducir la opción: ");
+                opt = sc.nextInt();
+            }
+            
+            switch (opt) {
+                case 1:
+                    AgricultoresOP2.insJPQLT2(entitymanager);
+                    break;
+                case 2:
+                    AgricultoresOP2.modifJPQLT2(entitymanager);
+                    break;
+                case 3:
+                    AgricultoresOP2.borradoJPTLT2(entitymanager);
+                    break;
+                case 4:
+                    AgricultoresOP2.consultaJPTLT2();
+                    break;
+                case 0:
+                    MenuApp();
                     break;
             }
         }

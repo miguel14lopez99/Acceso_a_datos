@@ -46,7 +46,7 @@ public class Agricultores implements Serializable {
     @ManyToOne
     private Campanias idCamp;
     @OneToMany(mappedBy = "idAgri")
-    private Collection<Trabajos> trabajosCollection;
+    private Collection<Maquinas> maquinasCollection;
 
     public Agricultores() {
     }
@@ -87,12 +87,12 @@ public class Agricultores implements Serializable {
         this.idCamp = idCamp;
     }
 
-    public Collection<Trabajos> getTrabajosCollection() {
-        return trabajosCollection;
+    public Collection<Maquinas> getMaquinasCollection() {
+        return maquinasCollection;
     }
 
-    public void setTrabajosCollection(Collection<Trabajos> trabajosCollection) {
-        this.trabajosCollection = trabajosCollection;
+    public void setMaquinasCollection(Collection<Maquinas> maquinasCollection) {
+        this.maquinasCollection = maquinasCollection;
     }
 
     @Override
