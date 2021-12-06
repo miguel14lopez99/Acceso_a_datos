@@ -295,13 +295,12 @@ public class Main {
                 + "\n0. Volver al menú pricipal"
                 + "\n1. Tabla 2 (sin JPQL)"
                 + "\n2. Tabla 1 (con JPQL no almacenadas)"
-                + "\n3. Tabla 1 (sin JPQL)"
-                + "\n4. Tabla 3 (con JPQL)");
+                + "\n3. Tabla 1 (sin JPQL) y Tabla 3 (con JPQL)");
             
             System.out.println("\nIntroduce la opción: ");
             opt = sc.nextInt();
         
-            if (opt < 0 || opt > 4){ // rango de las opciones
+            if (opt < 0 || opt > 3){ // rango de las opciones
                 System.out.println("Error vuelve a introducir la opción: ");
                 opt = sc.nextInt();
             }
@@ -311,16 +310,10 @@ public class Main {
                     menu1();
                     break;
                 case 2:
-                    //menu2();
-                    System.out.println("metodo2");
+                    menu2();
                     break;
                 case 3:
-                    //menu3();
-                    System.out.println("metodo3");
-                    break;
-                case 4:
-                    //menu4();
-                    System.out.println("metodo4");
+                    menu3();
                     break;
                 case 0:
                     menuPrincipal();
@@ -362,8 +355,88 @@ public class Main {
                     AgricultoresOP2.borradoJPTLT2(entitymanager);
                     break;
                 case 4:
-                    AgricultoresOP2.consultaJPTLT2();
+                    AgricultoresOP2.consultaJPTLT2(entitymanager);
                     break;
+                case 0:
+                    MenuApp();
+                    break;
+            }
+        }
+        
+    }
+    
+    public static void menu2(){              
+        
+        int opt = -1;
+        
+        while(opt != 0){ //opción de salida
+            
+            System.out.println("============ APP ============"
+                + "\n0. Volver al menú de la app"
+                + "\n1. Inserción de registro"
+                + "\n2. Modificación de registro"
+                + "\n3. Borrado registro"
+                + "\n4. Mostrar los datos de un registro");
+            
+            System.out.println("\nIntroduce la opción: ");
+            opt = sc.nextInt();
+        
+            if (opt < 0 || opt > 4){ // rango de las opciones
+                System.out.println("Error vuelve a introducir la opción: ");
+                opt = sc.nextInt();
+            }
+            
+            switch (opt) {
+                case 1:
+                    CampaniasOP1.insJPQLT1(entitymanager);
+                    break;
+                case 2:
+                    CampaniasOP1.modifJPQLT1(entitymanager);
+                    break;
+                case 3:
+                    CampaniasOP1.borradoJPTLT1(entitymanager);
+                    break;
+                case 4:
+                    CampaniasOP1.consultaJPQLT1(entitymanager);
+                    break;
+                case 0:
+                    MenuApp();
+                    break;
+            }
+        }
+        
+    }
+    
+    public static void menu3(){              
+        
+        int opt = -1;
+        
+        while(opt != 0){ //opción de salida
+            
+            System.out.println("============ APP ============"
+                + "\n0. Volver al menú de la app"
+                + "\n1. Consulta sin JPQL Tabla 1"
+                + "\n2. Modificación con JPQL Tabla 3"
+                + "\n3. Borrado con JPQL Tabla 3");
+            
+            System.out.println("\nIntroduce la opción: ");
+            opt = sc.nextInt();
+        
+            if (opt < 0 || opt > 3){ // rango de las opciones
+                System.out.println("Error vuelve a introducir la opción: ");
+                opt = sc.nextInt();
+            }
+            
+            switch (opt) {
+                case 1:
+                    CampaniasOP1.consultaSinJPQLT1(entitymanager);
+                    break;
+                case 2:
+                    CampaniasOP1.modifJPQLT1(entitymanager);
+                    break;
+                case 3:
+                    CampaniasOP1.borradoJPTLT1(entitymanager);
+                    break;                
                 case 0:
                     MenuApp();
                     break;

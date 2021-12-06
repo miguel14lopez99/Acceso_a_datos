@@ -5,7 +5,6 @@
  */
 package ejercicios.trabajo_r3_miguel_lopez;
 
-import static ejercicios.trabajo_r3_miguel_lopez.Main.entitymanager;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -67,7 +66,7 @@ public class AgricultoresOP2 {
 
         entitymanager.getTransaction().begin();
         
-        System.out.println("Introduce un id del agricultor: ");
+        System.out.println("Introduce un id de agricultor: ");
         int id = sc.nextInt();
         agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);
         
@@ -117,7 +116,7 @@ public class AgricultoresOP2 {
         
     }
     
-    public static void consultaJPTLT2(){
+    public static void consultaJPTLT2(EntityManager entitymanager){
         
         System.out.println("Introduce un id de agricultor: ");
         int id = sc.nextInt();

@@ -5,7 +5,16 @@
  */
 package ejercicios.trabajo_r3_miguel_lopez;
 
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 
 /**
  *
@@ -13,7 +22,7 @@ import java.util.Scanner;
  */
 public class CampaniasOP1 {
     
-    private final static Scanner sc = new Scanner(System.in);
+    private final static Scanner sc = new Scanner(System.in); 
     
     private static Campanias campania;
     private static Agricultores agricultor;
@@ -23,121 +32,159 @@ public class CampaniasOP1 {
 
         entitymanager.getTransaction().begin();
         
-        System.out.println("Introduce un id para el agricultor: ");
+        System.out.println("Introduce un id para la campaña: ");
         int id = sc.nextInt();
-        agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id));
+        campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(id));
         
-        if(agricultor == null){
-            agricultor = new Agricultores();
-            agricultor.setIdAgri(BigDecimal.valueOf(id));
+        sc.nextLine(); //para que no haya error
+        
+        if(campania == null){
+            campania = new Campanias();
+            campania.setIdCamp(BigDecimal.valueOf(id));
             System.out.println("Introduce el nombre: ");
-            agricultor.setNombreAgri(sc.next());
-            System.out.println("Introduce el telefono: ");
-            agricultor.setTelefono(sc.nextInt());
-
-            //buscar campania correspondiente
-            System.out.println("Introduce el id la campaña: ");
-            campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(sc.nextInt()));
-            agricultor.setIdCamp(campania);
+            campania.setNombreCamp(sc.nextLine());
+            System.out.println("Introduce una descripción: ");
+            campania.setDescripcion(sc.nextLine());
             
-            if (campania != null){
-                entitymanager.persist(agricultor);
-                System.out.println("\nAgricultor Insertado\n");
-            } else {
-                System.out.println("La id introducido no está asociado a ninguna campaña");
-            }
-            
+            entitymanager.persist(campania);
+            System.out.println("\nCampaña Insertada\n");
             
         } else {
-            System.out.println("La id introducida ya está asociada a un agricultor");
+            System.out.println("La id introducida ya está asociada a una camapaña");
         }
 
         entitymanager.getTransaction().commit();
         
     }
     
-    public static void modifJPQLT2(EntityManager entitymanager){
-
+    public static void modifJPQLT1(EntityManager entitymanager){
+        
         entitymanager.getTransaction().begin();
         
-        System.out.println("Introduce un id del agricultor: ");
+        System.out.println("Introduce un id de campaña: ");
         int id = sc.nextInt();
-        agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);
+        campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);
         
-        if(agricultor != null){
+        sc.nextLine(); //para que no haya error
+        
+        if(campania != null){
+            
+            Query query = entitymanager.createQuery("UPDATE Campanias c SET c.nombreCamp = :nombre , c.descripcion = :descrip WHERE c.idCamp = :id");
+            
             System.out.println("Introduce el nuevo nombre: ");
-            agricultor.setNombreAgri(sc.next());
-            System.out.println("Introduce el nuevo telefono: ");
-            agricultor.setTelefono(sc.nextInt());
+            String nombre = sc.nextLine();
+            System.out.println("Introduce la nueva descripción: ");
+            String descrip = sc.nextLine();
+            
+            query.setParameter("nombre", nombre);
+            query.setParameter("descrip", descrip);      
+            query.setParameter("id", BigDecimal.valueOf(id));
 
-            //buscar campania correspondiente
-            System.out.println("Introduce el id la campaña: ");
-            campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(sc.nextInt()));
-            agricultor.setIdCamp(campania);
-            
-            if (campania != null){
-                entitymanager.persist(agricultor);
-                System.out.println("\nAgricultor Modificado\n");
-            } else {
-                System.out.println("La id introducido no está asociado a ninguna campaña");
-            }
-            
-            
+            query.executeUpdate();
+        
+            System.out.println("\nCampaña Modificada\n");
+ 
         } else {
-            System.out.println("La id introducida no está asociada a ningún agricultor");
+            System.out.println("La id introducida no está asociada a ningúna campaña");
         }
 
         entitymanager.getTransaction().commit();
         
     }
     
-    public static void borradoJPTLT2(EntityManager entitymanager){
+    public static void borradoJPTLT1(EntityManager entitymanager){
 
         entitymanager.getTransaction().begin();
         
-        System.out.println("Introduce un id del agricultor a eliminar: ");
+        System.out.println("Introduce un id de campaña: ");
         int id = sc.nextInt();
-        agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);
+        campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);        
         
-        if(agricultor != null){
-            entitymanager.remove(agricultor);
-            System.out.println("\nAgricultor Borrado\n");
+        if(campania != null){
+            
+            Query query = entitymanager.createQuery("DELETE FROM Campanias c WHERE c.idCamp = :id");
+                            
+            query.setParameter("id", BigDecimal.valueOf(id));
+
+            query.executeUpdate();
+        
+            System.out.println("\nCampaña Borrada\n");
+ 
         } else {
-            System.out.println("La id introducida no está asociada a ningún agricultor");
+            System.out.println("La id introducida no está asociada a ningúna campaña");
         }
 
         entitymanager.getTransaction().commit();
         
     }
     
-    public static void consultaJPTLT2(){
+    public static void consultaJPQLT1(EntityManager entitymanager){
         
-        System.out.println("Introduce un id de agricultor: ");
+        System.out.println("Introduce un id de campaña: ");
         int id = sc.nextInt();
-        agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id));
+        campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(id));
         
-        if (agricultor != null){
+        if (campania != null){
+            
+            TypedQuery<Object[]> query = entitymanager.createQuery("Select c.idCamp,c.nombreCamp,c.descripcion from Campanias c Where c.idCamp = :id ", Object[].class);
+
+            query.setParameter("id", BigDecimal.valueOf(id));
+            
+            List<Object[]> list = query.getResultList();
+
+            for(Object[] e:list) {
+                System.out.println("Camp ID :"+e[0]);
+                System.out.println("Camp NOMBRE :"+e[1]);
+                System.out.println("Camp DESCRIP :"+e[2]);               
+                System.out.println("");
+            }
+            
+            TypedQuery<Object[]> query2 = entitymanager.createQuery("Select a.idAgri,a.nombreAgri,a.telefono from Agricultores a Where a.idCamp = :id ", Object[].class);
+    
+            query2.setParameter("id", campania);
+            
+            List<Object[]> list2 = query2.getResultList();
+            
+            for(Object[] e:list2) {               
+                System.out.println("\tAgri ID :"+e[0]);
+                System.out.println("\tAgri NOMBRE :"+e[1]);
+                System.out.println("\tAgri TELEFONO :"+e[2]);               
+                System.out.println("");
+            }
+            
+        } else {
+            System.out.println("La id introducida no está asociada a ningúna campaña");
+        }
+        
+    }
+    
+    public static void consultaSinJPQLT1(EntityManager entitymanager){
+        
+        System.out.println("Introduce un id de campaña: ");
+        int id = sc.nextInt();
+        campania = entitymanager.find(Campanias.class, BigDecimal.valueOf(id));
+        
+        if (campania != null){
             System.out.println("");
-            System.out.println("Agri ID: "+agricultor.getIdAgri());
-            System.out.println("Agri NOMBRE: "+agricultor.getNombreAgri());
-            System.out.println("Agri TELEFONO: "+agricultor.getTelefono());
+            System.out.println("Camp ID: "+campania.getIdCamp());
+            System.out.println("Camp NOMBRE: "+campania.getNombreCamp());
+            System.out.println("Camp DESCRIP: "+campania.getDescripcion());
             System.out.println("");
             
-            Collection<Maquinas> list = agricultor.getMaquinasCollection();
+            Collection<Agricultores> list = campania.getAgricultoresCollection();
             
-            Iterator<Maquinas> it = list.iterator();
+            Iterator<Agricultores> it = list.iterator();
             
             while(it.hasNext()){
                 
-                maquina = it.next();
-                System.out.println("\tMaquina ID: "+ maquina.getIdMaquina());
-                System.out.println("\tMaquina N. BASTIDOR: "+ maquina.getNroBastidor());
-                SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
-                System.out.println("\tMaquina ULT. REVISIÓN: "+ fecha.format(maquina.getUltRevision()));
+                agricultor = it.next();
+                System.out.println("\tAgri ID: "+agricultor.getIdAgri());
+                System.out.println("\tAgri NOMBRE: "+agricultor.getNombreAgri());
+                System.out.println("\tAgri TELEFONO: "+agricultor.getTelefono());
                 System.out.println("");
             }
         } else {
-            System.out.println("La id introducida no está asociada a ningún agricultor");
+            System.out.println("La id introducida no está asociada a ningúna campaña");
         }
         
     }
