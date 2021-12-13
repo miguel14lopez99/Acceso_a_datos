@@ -7,7 +7,8 @@ package ejercicios.trabajo_r3_miguel_lopez;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+//import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Campanias implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(mappedBy = "idCamp")
-    private Collection<Agricultores> agricultoresCollection;
+    private List<Agricultores> agricultoresCollection;
 
     public Campanias() {
     }
@@ -74,11 +75,11 @@ public class Campanias implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Collection<Agricultores> getAgricultoresCollection() {
+    public List<Agricultores> getAgricultoresCollection() {
         return agricultoresCollection;
     }
 
-    public void setAgricultoresCollection(Collection<Agricultores> agricultoresCollection) {
+    public void setAgricultoresCollection(List<Agricultores> agricultoresCollection) {
         this.agricultoresCollection = agricultoresCollection;
     }
 

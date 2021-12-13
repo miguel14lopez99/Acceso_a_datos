@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,6 +26,7 @@ import javax.persistence.TemporalType;
  * @author b15-04m
  */
 @Entity
+@IdClass(MaquinaID.class)
 @Table(name = "MAQUINAS")
 @NamedQueries({
     @NamedQuery(name = "Maquinas.findAll", query = "SELECT m FROM Maquinas m"),
@@ -39,6 +41,7 @@ public class Maquinas implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_MAQUINA")
     private BigDecimal idMaquina;
+    @Id
     @Column(name = "NRO_BASTIDOR")
     private String nroBastidor;
     @Column(name = "ULT_REVISION")
@@ -51,8 +54,9 @@ public class Maquinas implements Serializable {
     public Maquinas() {
     }
 
-    public Maquinas(BigDecimal idMaquina) {
+    public Maquinas(BigDecimal idMaquina, String nroBastidor) {
         this.idMaquina = idMaquina;
+        this.nroBastidor = nroBastidor;
     }
 
     public BigDecimal getIdMaquina() {
