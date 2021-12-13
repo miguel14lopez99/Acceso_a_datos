@@ -106,6 +106,16 @@ public class AgricultoresOP2 {
         agricultor = entitymanager.find(Agricultores.class, BigDecimal.valueOf(id), LockModeType.PESSIMISTIC_READ);
         
         if(agricultor != null){
+            Collection<Maquinas> list = agricultor.getMaquinasCollection();
+            
+            Iterator<Maquinas> it = list.iterator();
+            
+            while(it.hasNext()){
+                maquina = it.next();
+                entitymanager.remove(maquina);
+                System.out.println("\nMáquina Borrada\n");
+            }
+            
             entitymanager.remove(agricultor);
             System.out.println("\nAgricultor Borrado\n");
         } else {

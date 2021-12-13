@@ -119,6 +119,7 @@ public class Main {
                                "23-07-2021", "27-07-2021", "28-07-2021", "08-09-2021", "25-11-2021", "22-12-2021"};
         int[] agricultores = {1,2,3,4,5,6,7,8,9,10,11,12};
 
+        
         //Borrado de registros 
         entitymanager.getTransaction().begin();
         entitymanager.createQuery("DELETE FROM Maquinas").executeUpdate();  
