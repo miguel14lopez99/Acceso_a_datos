@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicios.trabajo_r3_miguel_lopez;
+package ejercicios.trabajo_r4_miguel_lopez;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -41,13 +41,6 @@ public class Main {
         //menu
         menuPrincipal();
         
-    }
-    
-    public static void inicializarFactory(){
-        
-        emfactory = Persistence.createEntityManagerFactory("./db/agridb.odb;");
-        entitymanager = emfactory.createEntityManager();
-        System.out.println("\nConectado\n");
     }
     
     public static void menuPrincipal(){       
@@ -100,7 +93,13 @@ public class Main {
         }
         
     }
-
+    
+    public static void inicializarFactory(){
+        
+        emfactory = Persistence.createEntityManagerFactory("./db/agridb.odb;");
+        entitymanager = emfactory.createEntityManager();
+        System.out.println("\nConectado\n");
+    }
     
     public static void ReiniciarDatos(){
 
@@ -216,6 +215,7 @@ public class Main {
                     menuPrincipal();
                     break;
             }
+            
         }
         
     }
@@ -300,6 +300,7 @@ public class Main {
                     MenuApp();
                     break;
             }
+            
         }
         
     }
@@ -338,6 +339,7 @@ public class Main {
                     MenuApp();
                     break;
             }
+            
         }
         
     }

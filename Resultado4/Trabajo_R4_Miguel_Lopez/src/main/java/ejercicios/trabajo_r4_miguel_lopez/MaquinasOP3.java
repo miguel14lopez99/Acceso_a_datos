@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicios.trabajo_r3_miguel_lopez;
+package ejercicios.trabajo_r4_miguel_lopez;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
