@@ -5,6 +5,8 @@
  */
 package ejecicioexist1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javax.xml.xquery.XQConnection;
 import javax.xml.xquery.XQDataSource;
@@ -52,25 +54,80 @@ public class EjecicioExist1 {
 //        
 //        con.close();
 
-        Scanner sc = new Scanner(System.in);
+////////////// EJERCICIO 1 parte 2
         
-        System.out.println("Introduce el código de departamento: ");
-        String dept = sc.next();
-        
+        String[] res = null;
+
         XQPreparedExpression consulta;
         XQResultSequence resultado;
-        
-        consulta = con.prepareExpression("/universidad/departamento[codigo='"+ dept +"']/empleado");
+        consulta = con.prepareExpression("/universidad/departamento[codigo='MAT1']/empleado/concat(nombre, ';', @salario)");  
         
         resultado = consulta.executeQuery();
         
         XQResultItem r_item;
         
         while (resultado.next()) {
-            r_item = (XQResultItem) resultado.getItem();            
-            String cad = r_item.getItemAsString(null).replace(" xmlns=\"\"","");         
-            System.out.println(cad);
+            r_item = (XQResultItem) resultado.getItem();
+            String cad = r_item.getItemAsString(null);
+            res = cad.split(";");
+            
+            Double salario = Double.parseDouble(res[1]) + 1;
+            
+            XQExpression consulta3;
+            consulta3 = con.createExpression();
+            consulta3.executeCommand("update value /universidad/departamento[codigo='MAT1']/empleado[nombre = '"+ res[0] +"']/@salario" 
+                    + " with " + salario);
+            
         }
+        
+//        XQPreparedExpression consulta2;
+//        XQResultSequence resultado2;
+//        consulta2 = con.prepareExpression("/universidad/departamento[codigo='MAT1']/empleado/string(@salario)");  
+//        
+//        resultado2 = consulta2.executeQuery();
+//        
+//        XQResultItem r_item2;
+//        
+//        while (resultado2.next()) {
+//            r_item2 = (XQResultItem) resultado2.getItem();
+//            salarios.add(Double.parseDouble(r_item2.getItemAsString(null)));
+//        }
+          
+//        System.out.println("");
+//        for(Double salario : salarios){
+//            salario = salario + 1;
+//        }
+//               
+//        for (int i = 0; i < nombres.size(); i++) {
+//            XQExpression consulta3;
+//            consulta3 = con.createExpression();
+//            consulta3.executeCommand("update value /universidad/departamento[codigo='MAT1']/empleado[nombre = '"+ nombres.get(i) +"']/@salario" 
+//                    + " with " + salarios.get(i));
+//
+//        }
+                
+                
+        
+
+//        Scanner sc = new Scanner(System.in);
+//        
+//        System.out.println("Introduce el código de departamento: ");
+//        String dept = sc.next();
+//        
+//        XQPreparedExpression consulta;
+//        XQResultSequence resultado;
+//        
+//        consulta = con.prepareExpression("/universidad/departamento[codigo='"+ dept +"']/empleado");
+//        
+//        resultado = consulta.executeQuery();
+//        
+//        XQResultItem r_item;
+//        
+//        while (resultado.next()) {
+//            r_item = (XQResultItem) resultado.getItem();            
+//            String cad = r_item.getItemAsString(null).replace(" xmlns=\"\"","");         
+//            System.out.println(cad);
+//        }
 
     }
     

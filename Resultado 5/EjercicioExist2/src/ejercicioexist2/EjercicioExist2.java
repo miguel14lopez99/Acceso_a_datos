@@ -15,6 +15,8 @@ import javax.xml.xquery.XQResultItem;
 import javax.xml.xquery.XQResultSequence;
 import net.xqj.exist.ExistXQDataSource;
 
+
+
 /**
  *
  * @author chipi
@@ -42,7 +44,7 @@ public class EjercicioExist2 {
         //eliminar departamento
         //Borradep();
         //modificar departamento
-        Modificadep();
+        //Modificadep();
         
         con.close();
         
