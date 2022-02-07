@@ -1,0 +1,258 @@
+create or replace type T_ALUMNO as object (
+	p persona,
+	nota_1ev number,
+	nota_2ev number,
+	nota_3ev number,
+	member function media_alumno return number
+);
+
+/////////
+
+DECLARE
+    dir direccion;
+    p persona;
+    alumno T_ALUMNO;
+begin
+    dir:= new direccion ('C/Madrid 10','Toledo',45002);
+    p:= new persona (2, 'JUAN', dir, SYSDATE);
+    alumno:= new T_ALUMNO (p, 5, 6, 7);
+    dbms_output.put_line('nombre: '||alumno.p.nombre||'1ª EV: '||alumno.nota_1ev||'2ª EV: '||alumno.nota_2ev||'3ª EV: '||alumno.nota_3ev);
+end;
+/
+
+/////////
+
+create or replace type body T_ALUMNO as
+    member function media_alumno return number is
+        begin
+            return (nota_1ev + nota_2ev + nota_2ev)/3;
+        end;
+end;
+
+/////////
+
+create table ALUMNOS2 (alumno T_ALUMNO);
+
+INSERT INTO ALUMNOS2 (alumno) values (new T_ALUMNO(new persona(1, 'Jose', new direccion('Plaza España', 'Ciudad Real', '45123'), SYSDATE), 5, 8, 6));
+INSERT INTO ALUMNOS2 (alumno) values (new T_ALUMNO(new persona(2, 'Juan', new direccion('Ronda Calatrava', 'Ciudad Real', '45002'), SYSDATE), 4, 6, 5));
+INSERT INTO ALUMNOS2 (alumno) values (new T_ALUMNO(new persona(3, 'Sofia', new direccion('C/Lucero', 'Guadalajara', '45321'), SYSDATE), 3, 2, 1));
+INSERT INTO ALUMNOS2 (alumno) values (new T_ALUMNO(new persona(4, 'Marta', new direccion('Avd. las Luces', 'Guadalajara', '45951'), SYSDATE), 9, 8, 9));
+
+/////////
+
+-- HERENCIA
+
+CREATE OR REPLACE TYPE T_NOTICIA_LOCAL UNDER T_NOTICIA(
+    localidad VARCHAR(100),
+    OVERRIDING member function F_NOTICIA_DONDE return VARCHAR2
+);
+
+CREATE OR REPLACE TYPE BODY T_NOTICIA_LOCAL AS
+    OVERRIDING member function F_NOTICIA_DONDE return VARCHAR2 AS
+        BEGIN
+            return localidad;
+        END;
+END;
+
+DECLARE
+    V_NOTICIA T_NOTICIA_LOCAL;
+BEGIN
+    V_NOTICIA := T_NOTICIA_LOCAL(1,'10/01/2022','ROBO EN GASOLINERA','PIUM, PIUM ...','ESPAÑA','CONSUEGRA');
+    dbms_output.put_line('CODIGO: ' || v_noticia.id_noticia || ' | FECHA: ' || v_noticia.fecha || 
+    ' | TITULO: ' || v_noticia.titulo || ' | DESCRIP: ' || v_noticia.descripcion || ' | PAIS: ' || v_noticia.pais || ' | LOCALIDAD: ' || v_noticia.localidad);
+    dbms_output.put_line('DIAS DESDE PUBLICACIÓN: ' || v_noticia.F_DIAS_NOTICIA());
+    dbms_output.put_line('LOCALIZACIÓN: ' || v_noticia.F_NOTICIA_DONDE());
+END;
+/
+
+CREATE TABLE TABLA_T_NOTICIA_LOCAL OF T_NOTICIA_LOCAL(
+    Id_noticia primary key
+);
+
+INSERT INTO tabla_t_noticia_local VALUES(T_NOTICIA_LOCAL(1,'10/01/2022','ROBO EN GASOLINERA','PIUM, PIUM ...','ESPAÑA','CONSUEGRA'));
+INSERT INTO tabla_t_noticia_local VALUES(T_NOTICIA_LOCAL(2,'20/01/2022','ROBO EN KIOSKO','SE LLEVARON LAS PIPAS ...','ESPAÑA','MADRIDEJOS'));
+
+DECLARE
+    noticiaLocal3 T_NOTICIA_LOCAL;
+    noticiaLocal4 T_NOTICIA_LOCAL;
+BEGIN
+    noticialocal3 := T_NOTICIA_LOCAL(3,'21/01/2022','EXPOSICIÓN DE STANLEY KUBRIK','TO GUAPO ABE ...','ESPAÑA','MADRID');
+    noticialocal4 := T_NOTICIA_LOCAL(4,'22/01/2022','EXPOSICIÓN DE EL GRECO','REPIOLA ...','ESPAÑA','TOLEDO');
+    
+    insert into tabla_t_noticia_local values(noticialocal3);
+    insert into tabla_t_noticia_local values(noticialocal4);
+    commit;
+END;
+/
+
+select * from tabla_t_noticia_local;
+
+-- VARRAYS
+
+CREATE OR REPLACE TYPE TELEFONO AS VARRAY(5) OF VARCHAR2(9);
+
+CREATE TABLE AGENDA(
+    NOMBRE VARCHAR2(15),
+    TELEF TELEFONO
+);
+
+INSERT INTO AGENDA VALUES('MIGUEL',TELEFONO('666222999','999222555'));
+INSERT INTO AGENDA VALUES('MANUEL',TELEFONO('111222333','999888777'));
+INSERT INTO AGENDA VALUES('MARTA',TELEFONO('666555444','777555333'));
+
+SELECT * FROM AGENDA;
+SELECT TELEF FROM AGENDA;
+
+UPDATE AGENDA SET TELEF = TELEFONO('111555111') WHERE NOMBRE = 'MARTA';
+
+/*////////////////////////////////////////////////////////////////////*/
+
+DECLARE
+    CURSOR C1 IS SELECT * FROM AGENDA;
+    CAD VARCHAR2(50);
+BEGIN
+    FOR I IN C1 LOOP
+        FOR J IN 1..I.TELEF.COUNT LOOP
+            CAD := CAD || I.TELEF(J) || '*';
+        END LOOP;
+    END LOOP;
+    DBMS_OUTPUT.put_line(CAD);
+END;
+/
+
+CREATE PROCEDURE RELLENAR_AGENDA AS
+    N1 VARCHAR2(15) := 'PEPITO';
+    N2 VARCHAR2(15) := 'JUANITO';
+    N3 VARCHAR2(15) := 'PAQUITO';
+    N4 VARCHAR2(15) := 'MENGANITO';
+    
+    T1 TELEFONO := TELEFONO('123456789','987654321');
+    T2 TELEFONO := TELEFONO('111222333','222333444');
+    T3 TELEFONO := TELEFONO('333444555','444555666');
+    T4 TELEFONO := TELEFONO('555666777','666777888');
+BEGIN
+    INSERT INTO AGENDA VALUES(N1,T1);
+    INSERT INTO AGENDA VALUES(N2,T2);
+    INSERT INTO AGENDA VALUES(N3,T3);
+    INSERT INTO AGENDA VALUES(N4,T4);
+    COMMIT;
+END;
+/
+
+CREATE OR REPLACE FUNCTION PRIMER_TELEFONO(P_NOMBRE VARCHAR2) RETURN VARCHAR2 AS
+    V_TELEF TELEFONO;
+    V_PRIMER_TELEFONO VARCHAR2(9);
+BEGIN
+    SELECT TELEF INTO V_TELEF FROM AGENDA WHERE NOMBRE = P_NOMBRE;
+    V_PRIMER_TELEFONO := V_TELEF(V_TELEF.FIRST);
+    RETURN V_PRIMER_TELEFONO;
+END;
+/
+
+DECLARE
+    V_NOMBRE VARCHAR2(15) := 'eLENA';
+    V_TELEFONO VARCHAR2(9);
+BEGIN
+    V_TELEFONO := PRIMER_TELEFONO(V_NOMBRE);
+    DBMS_OUTPUT.PUT_LINE('EL PRIMER TELEFONO DE ' || V_NOMBRE || ' ES: ' || V_TELEFONO);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('NO SE HA ENCONTRADO EL USUARIO');
+    WHEN COLLECTION_IS_NULL THEN
+        DBMS_OUTPUT.PUT_LINE('EL USUARIO NO TIENE NÚMEROS');
+END;
+/
+
+INSERT INTO AGENDA VALUES('eLENA', NULL);
+
+DECLARE
+    V_TELEFONOS TELEFONO;
+BEGIN
+    SELECT TELEF INTO V_TELEFONOS FROM AGENDA WHERE NOMBRE = 'MARTA';
+    DBMS_OUTPUT.PUT_LINE('Nº DE ELEMENTOS: ' || v_telefonos.COUNT);
+    DBMS_OUTPUT.PUT_LINE('INDICE DEL 1º ELEMENTO: ' || v_telefonos.FIRST);
+    DBMS_OUTPUT.PUT_LINE('INDICE DEL ULTIMO ELEMENTO: ' || v_telefonos.LAST);
+    DBMS_OUTPUT.PUT_LINE('MAXIMO DE ELEMENTOS: ' || v_telefonos.LIMIT);
+    -- Añadir un nuevo numero a MARTA
+    V_TELEFONOS.EXTEND;
+    V_TELEFONOS(V_TELEFONOS.COUNT) := '444222666';
+    UPDATE AGENDA SET telef = V_TELEFONOS WHERE NOMBRE = 'MARTA';
+    COMMIT;
+    -- Elimina un telefono
+    SELECT TELEF INTO V_TELEFONOS FROM AGENDA WHERE NOMBRE = 'MARTA';
+    V_TELEFONOS.TRIM; -- ELIMINA EL ULTIMO ELEMENTO DEL ARRAY
+    V_TELEFONOS.DELETE; -- ELIMINA TODOS LOS ELEMENTOS DEL ARRAY
+    UPDATE AGENDA SET telef = V_TELEFONOS WHERE NOMBRE = 'MARTA';
+    COMMIT;
+END;
+/
+
+CREATE OR REPLACE TYPE PERSONA2 AS OBJECT(
+    CODIGO NUMBER,
+    NOMBRE VARCHAR2(35),
+    CALLE VARCHAR2(50)
+);
+
+CREATE OR REPLACE TYPE EMPLEA2 AS VARRAY(5) OF PERSONA2; 
+
+CREATE TABLE GRUPOS(
+    NOMBRE_GRUPO VARCHAR2(15),
+    EMPLEADOS EMPLEA2
+);
+
+create or replace PROCEDURE LLENAR_GRUPOS AS
+    CURSOR C1 IS SELECT DNOMBRE, LOC, DEPT_NO FROM DEPARTAMENTOS;
+    CURSOR C2(P_DEPT_NO NUMBER) IS SELECT APELLIDO, EMP_NO FROM EMPLEADOS WHERE DEPT_NO = P_DEPT_NO;
+    V_CURSOR2 C2%ROWTYPE;
+    V_EMPLEADOS EMPLEA2;
+    V_CONTADOR NUMBER:=1;
+BEGIN
+    FOR I IN C1 LOOP
+	V_EMPLEADOS := NEW EMPLEA2();
+        OPEN C2(I.DEPT_NO);
+        LOOP
+            FETCH C2 INTO V_CURSOR2;
+            --Con comprobacion del contador, si el contador se pasa del tamaño limite del array se sale del loop
+			--Tambien se sale en cuanto no haya mas filas en el cursor 
+            EXIT WHEN C2%NOTFOUND OR V_CONTADOR>=V_EMPLEADOS.LIMIT()+1;
+            V_EMPLEADOS.EXTEND();
+            V_EMPLEADOS(V_CONTADOR):= PERSONA2(V_CURSOR2.EMP_NO,V_CURSOR2.APELLIDO,I.LOC);
+            V_CONTADOR:=V_CONTADOR+1;
+        END LOOP;
+        CLOSE C2;
+        --Si el contador está en 1, quiere decir que se ha salido del loop y por lo tanto no tiene empleados
+        IF V_CONTADOR = 1 THEN
+            INSERT INTO GRUPOS VALUES(I.DNOMBRE,NULL);
+        ELSE
+            INSERT INTO GRUPOS VALUES(I.DNOMBRE,V_EMPLEADOS);
+        END IF;
+        V_CONTADOR:=1;
+    END LOOP;
+	COMMIT;
+END;
+
+BEGIN
+    LLENAR_GRUPOS();
+END;
+
+CREATE OR REPLACE PROCEDURE MOSTRAR_EMPLEADOS AS
+    CURSOR C1 IS SELECT NOMBRE_GRUPO, EMPLEADOS FROM GRUPOS;    
+BEGIN
+    FOR I IN C1 LOOP
+    DBMS_OUTPUT.PUT(I.NOMBRE_GRUPO || ' : ');
+        IF I.EMPLEADOS IS NOT NULL THEN
+            FOR J IN 1..I.EMPLEADOS.COUNT LOOP
+                DBMS_OUTPUT.PUT(I.EMPLEADOS(J).NOMBRE || ',  ');
+            END LOOP;
+        ELSE
+            DBMS_OUTPUT.PUT('NO TIENE EMPLEADOS');
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+END;
+/
+
+BEGIN
+    MOSTRAR_EMPLEADOS();
+END;
+

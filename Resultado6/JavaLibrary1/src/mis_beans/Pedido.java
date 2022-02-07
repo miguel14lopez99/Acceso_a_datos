@@ -68,6 +68,7 @@ public class Pedido implements Serializable, PropertyChangeListener {
             System.out.printf("Stock anterior: %d%n", evt.getOldValue());
             System.out.printf("Nuevo Stock: %d%n", evt.getNewValue());        
             System.out.printf("REALIZAR PEDIDO EN PRODUCTO: %s%n", producto.getDescripcion());
+            this.setCantidad(producto.getStockactual() + 20);
         }        
     }
     

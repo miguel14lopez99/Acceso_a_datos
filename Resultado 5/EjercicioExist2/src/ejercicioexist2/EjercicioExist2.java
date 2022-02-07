@@ -165,6 +165,57 @@ public class EjercicioExist2 {
         }
     }
     
+     public static void menuPrincipal(){
+        
+        Scanner sc = new Scanner (System.in);
+        
+        System.out.println("============================"
+                + "\n0. Salir"
+                + "\n1. Crear estructura de carpetas"
+                + "\n2. Alta datos productos"
+                + "\n3. Generación de plantilla XLS"
+                + "\n4. Seleccionar productos a ofertar"
+                + "\n5. Generar archivo XML con productos a ofertar"
+                + "\n6. Generación página web con productos a ofertar");
+        
+        int opt = -1;
+        
+        while(opt != 0){ //opción de salida
+            
+            System.out.println("\nIntroduce la opción: ");
+            opt = sc.nextInt();
+        
+            if (opt < 0 || opt > 6){ // rango de las opciones
+                System.out.println("Error vuelve a introducir la opción: ");
+                opt = sc.nextInt();
+            }
+            
+            switch (opt) {
+                case 1:
+                    metodo1();
+                    break;
+                case 2:
+                    metodo2();
+                    break;
+                case 3:
+                    metodo3();
+                    break;
+                case 4:
+                    metodo4();
+                    break;
+                case 5:
+                    metodo5();
+                    break;
+                case 6:
+                    metodo6();
+                    break;
+                case 0:
+                    System.out.println("Adios");
+                    break;
+            }
+        }
+        
+    }
     
     
 }
