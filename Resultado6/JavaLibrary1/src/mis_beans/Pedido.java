@@ -7,6 +7,7 @@ package mis_beans;
 
 import java.beans.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,7 +21,10 @@ public class Pedido implements Serializable, PropertyChangeListener {
     private Date fecha;
     private int cantidad;
     
+    private BaseDatos basedatos;
+    
     public Pedido() {
+        basedatos = new BaseDatos();
     }
 
     public Pedido(int numeropedido, Producto producto, Date fecha, int cantidad) {
@@ -28,6 +32,8 @@ public class Pedido implements Serializable, PropertyChangeListener {
         this.producto = producto;
         this.fecha = fecha;
         this.cantidad = cantidad;
+        
+        basedatos = new BaseDatos();
     }
 
     public int getNumeropedido() {
@@ -65,10 +71,16 @@ public class Pedido implements Serializable, PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("stockactual")){ // solo responde a la llamada de la propiedad stockactual
+            System.out.println("");
             System.out.printf("Stock anterior: %d%n", evt.getOldValue());
             System.out.printf("Nuevo Stock: %d%n", evt.getNewValue());        
-            System.out.printf("REALIZAR PEDIDO EN PRODUCTO: %s%n", producto.getDescripcion());
-            this.setCantidad(producto.getStockactual() + 20);
+
+            this.cantidad = producto.getStockactual() + 20;
+            this.numeropedido = basedatos.getMaxPedido();           
+            this.setFecha(new Date(System.currentTimeMillis()));
+            
+            System.out.printf("REALIZAR PEDIDO EN PRODUCTO: %s%n", producto.getDescripcion());           
+            basedatos.InsertarPedido(this);
         }        
     }
     

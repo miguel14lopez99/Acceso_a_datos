@@ -20,10 +20,14 @@ public class Producto implements Serializable {
     private int stockminimo;
     private float pvp;    
     
+    private BaseDatos basedatos;
+    
     private PropertyChangeSupport propertySupport;
     
     public Producto() {
         propertySupport = new PropertyChangeSupport(this);
+        
+        basedatos = new BaseDatos();
     }
     
     public Producto(int idproducto, String descripcion, int stockactual, int stockminimo, float pvp) {
@@ -33,6 +37,8 @@ public class Producto implements Serializable {
         this.stockactual = stockactual;
         this.stockminimo = stockminimo;
         this.pvp = pvp;
+                
+        basedatos = new BaseDatos();
     }
 
     public String getDescripcion() {
@@ -64,6 +70,8 @@ public class Producto implements Serializable {
             propertySupport.firePropertyChange("stockactual", valorAnterior, this.stockactual);
             //dejamos el stock anterior
             this.stockactual = valorAnterior;
+        } else {
+            basedatos.ActualizarStock(this);
         }
     }
 

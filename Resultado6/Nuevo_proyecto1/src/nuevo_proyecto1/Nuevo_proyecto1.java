@@ -11,6 +11,8 @@ import java.util.Date;
 import mis_beans.Pedido;
 import mis_beans.Producto;
 import mis_beans.Venta;
+import mis_beans.BaseDatos;
+import java.sql.Connection;
 
 /**
  *
@@ -21,20 +23,46 @@ public class Nuevo_proyecto1 {
     /**
      * @param args the command line arguments
      */
+    
+    public static Connection con;
+    
     public static void main(String[] args) throws ParseException {
         
-        Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse("03/02/2022");
+        Date fecha = new Date(System.currentTimeMillis());
         
-        Producto producto = new Producto (1, "Raton USB", 10, 3, 16);
+        //APERTURA BBDD
+        BaseDatos basedatos = new BaseDatos();
+        con = basedatos.AperturaBBDD();
         
-        Venta venta = new Venta(1, 1, fecha, 1, "");
-        producto.addPropertyChangeListener(venta);           
+        //CREAR VENTA
+        Venta venta = new Venta(basedatos.getMaxVenta()/*nroventa*/, 3/*idprod*/, fecha, 11/*cantidad*/, "");
+
+        //BUSCAR EL PRODUCTO       
+        Producto producto = basedatos.DevolverProducto(venta.getIdProducto());                       
+        
+        //INSERTAR LA VENTA
+        basedatos.InsertarVenta(venta);        
+        
+        //ASIGNADO A LISTENER DE PRODUCTO
+        producto.addPropertyChangeListener(venta);
+        
         
         Pedido pedido = new Pedido();
+        
+        //ASIGNAMOS EL PRODUCTO AL PEDIDO
         pedido.setProducto(producto);
+        
+        //ASIGNADO A LISTENER DE PRODUCTO
         producto.addPropertyChangeListener(pedido);
+        
+        
+        //ACTUALIZO STOCK
+        producto.setStockactual(producto.getStockactual() - venta.getCantidad());        
+        
+        
+        //SE CIERRA LA CONEXION
+        basedatos.CierreBBDD(con);
 
-        producto.setStockactual(producto.getStockactual() - venta.getCantidad());
     }
     
 }

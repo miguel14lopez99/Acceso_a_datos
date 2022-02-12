@@ -21,8 +21,10 @@ public class Venta implements Serializable, PropertyChangeListener {
     private int cantidad;
     private String observaciones;
     
+    private BaseDatos basedatos;
+    
     public Venta() {
-        this.observaciones = null;
+        this.basedatos = new BaseDatos();
     }
 
     public Venta(int numeroVenta, int idProducto, Date fecha, int cantidad, String observaciones) {
@@ -31,6 +33,8 @@ public class Venta implements Serializable, PropertyChangeListener {
         this.fecha = fecha;
         this.cantidad = cantidad;
         this.observaciones = observaciones;
+        
+        this.basedatos = new BaseDatos();
     }
 
     public int getNumeroVenta() {
@@ -78,6 +82,7 @@ public class Venta implements Serializable, PropertyChangeListener {
         if(evt.getPropertyName().equals("stockactual")){ // solo responde a la llamada de la propiedad stockactual
             //indicar en la base de datos que la venta no se puede hacer por falta de unidades
             this.observaciones = "La venta no se puede hacer por falta de unidades.";
+            basedatos.ActualizarObservaciones(this);
             System.out.println(observaciones);
         } 
     }
