@@ -1,0 +1,288 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 11:22:54 #1 store.file] 
+readTextFile error.
+
+[2022-02-16 11:22:54 #2 store.file] 
+java.io.FileNotFoundException: C:\Users\chipi\.objectdb\exolorer.xml (El sistema no puede encontrar el archivo especificado)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:111)
+	at com.objectdb.o.STH.B(STH.java:731)
+	at com.objectdb.o.STH.A(STH.java:715)
+	at com.objectdb.o.CNF.<init>(CNF.java:106)
+	at com.objectdb.o.CNF.<clinit>(CNF.java:32)
+	at com.objectdb.o.MainFrame.init(MainFrame.java:132)
+	at com.objectdb.o.EXA.<init>(EXA.java:77)
+	at com.objectdb.Explorer$1.run(Explorer.java:57)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:771)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:741)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+[2022-02-16 11:22:54 #3 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 1-2)
+
+[2022-02-16 11:22:55 #4 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 9752@DESKTOP-OHBIHU5
+
+[2022-02-16 11:22:55 #5 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 11:22:55 #6 store.file] 
+readTextFile error.
+
+[2022-02-16 11:22:55 #7 store.file] 
+java.io.FileNotFoundException: C:\Users\chipi\.objectdb\exolorer.xml (El sistema no puede encontrar el archivo especificado)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:111)
+	at com.objectdb.o.STH.B(STH.java:731)
+	at com.objectdb.o.STH.A(STH.java:715)
+	at com.objectdb.o.CNF.<init>(CNF.java:106)
+	at com.objectdb.o.CNF.f(CNF.java:130)
+	at com.objectdb.o.CNC.s(CNC.java:119)
+	at com.objectdb.o.EXA.<init>(EXA.java:87)
+	at com.objectdb.Explorer$1.run(Explorer.java:57)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:771)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:741)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+[2022-02-16 11:23:03 #8 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 9752@DESKTOP-OHBIHU5
+
+[2022-02-16 11:23:03 #9 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 9752@DESKTOP-OHBIHU5
+
+[2022-02-16 11:23:03 #10 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 11:23:42 #11 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 9752@DESKTOP-OHBIHU5
+
+[2022-02-16 11:23:42 #12 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 9752@DESKTOP-OHBIHU5
+
+[2022-02-16 11:23:42 #13 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 11:24:04 #14 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 9752@DESKTOP-OHBIHU5
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 11:29:40 #1 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 1-23)
+
+[2022-02-16 11:29:40 #2 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 16356@DESKTOP-OHBIHU5
+
+[2022-02-16 11:29:40 #3 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 17:39:15 #4 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 16356@DESKTOP-OHBIHU5
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 17:43:06 #1 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 17:43:06 #2 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 17:44:57 #3 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:08:01 #4 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:08:01 #5 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:08:13 #6 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:10:36 #7 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:10:36 #8 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:12:07 #9 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:16:59 #10 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:16:59 #11 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:20:17 #12 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:20:35 #13 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 28-50)
+
+[2022-02-16 19:20:35 #14 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:20:35 #15 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:21:09 #16 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:21:28 #17 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 55-73)
+
+[2022-02-16 19:21:28 #18 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:21:28 #19 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:21:53 #20 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:21:55 #21 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:21:55 #22 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:22:49 #23 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:34:37 #24 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 1-2)
+
+[2022-02-16 19:34:37 #25 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:34:37 #26 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:34:44 #27 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:40:05 #28 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 47-65)
+
+[2022-02-16 19:40:05 #29 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:40:05 #30 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:40:11 #31 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:46:25 #32 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 69-87)
+
+[2022-02-16 19:46:25 #33 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:46:25 #34 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:46:50 #35 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:47:51 #36 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 92-110)
+
+[2022-02-16 19:47:51 #37 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 19576@DESKTOP-OHBIHU5
+
+[2022-02-16 19:47:51 #38 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:48:15 #39 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 19576@DESKTOP-OHBIHU5
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 19:49:14 #1 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 114-133)
+
+[2022-02-16 19:49:14 #2 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 12936@DESKTOP-OHBIHU5
+
+[2022-02-16 19:49:14 #3 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:50:41 #4 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 12936@DESKTOP-OHBIHU5
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 19:51:37 #1 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 163-182)
+
+[2022-02-16 19:51:38 #2 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 7760@DESKTOP-OHBIHU5
+
+[2022-02-16 19:51:38 #3 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 19:52:10 #4 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 7760@DESKTOP-OHBIHU5
+
+[2022-02-16 19:56:57 #5 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 277-296)
+
+[2022-02-16 19:56:57 #6 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 7760@DESKTOP-OHBIHU5
+
+[2022-02-16 19:56:57 #7 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 20:06:41 #8 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 7760@DESKTOP-OHBIHU5
+
+[2022-02-16 20:19:56 #9 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' has been recovered (tr. 523-541)
+
+[2022-02-16 20:19:56 #10 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 7760@DESKTOP-OHBIHU5
+
+[2022-02-16 20:19:56 #11 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 20:20:05 #12 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 7760@DESKTOP-OHBIHU5
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2022-02-16 20:20:33 #1 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is opened by 20320@DESKTOP-OHBIHU5
+
+[2022-02-16 20:20:33 #2 store] 
+Configuration path: C:\Users\chipi\Desktop\objectdb-2.8.7\objectdb.conf
+
+[2022-02-16 20:21:13 #3 store] 
+Database 'C:\Users\chipi\Documents\Repositorios\Acceso_a_datos\Resultado6\ProyectoR6\db\resultado6db.odb' is closed by 20320@DESKTOP-OHBIHU5
+
